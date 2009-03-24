@@ -2,7 +2,7 @@
 <div style="width:20em; margin-left: auto; margin-right: auto">
 	<form action="submit.php" method="post">
 		<fieldset>
-			<label">
+			<label>
 				Name:<br />
 				<input type="text" name="name"/>
 			</label>
