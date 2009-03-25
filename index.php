@@ -30,22 +30,26 @@
 							<textarea name="description" rows="4" cols="20"></textarea>
 						</label>
 					</div>
-					<div>
+					<div style="float:left">
 						<label>
-							<input type="radio" name="kind" value="B" checked="checked"/>
+							<input type="radio" name="module" value="Skyrates" checked="checked"/>
+							Skyrates
+						</label>
+						<br />
+						<label>
+							<input type="radio" name="module" value="Skybug"/>
+							Skybug
+						</label>
+					</div>
+					<div style="float:right; text-align: right">
+						<label style="text-align:right">
 							Bug Report
+							<input type="radio" name="kind" value="B" checked="checked"/>
 						</label>
-					</div>
-					<div>
-						<label>
-							<input type="radio" name="kind" value="F"/>
+						<br />
+						<label style="text-align:right">
 							Feature Request
-						</label>
-					</div>
-					<div>
-						<label>
-							<input type="radio" name="kind" value="S"/>
-							Skybug Specific
+							<input type="radio" name="kind" value="F"/>
 						</label>
 					</div>
 					<div>

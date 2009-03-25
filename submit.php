@@ -8,14 +8,14 @@ if(mysqli_connect_errno()) {
 	header("Location:index.php");
 }
 
-if($stmt = $skybug -> prepare("INSERT INTO bugs (Name, Description, DateAdded, Kind, Status, Likes, Votes, Rate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
-	$stmt -> bind_param('sssssiid', $name, $description, $date, $kind, $status, $likes, $votes, $rate);
+if($stmt = $skybug -> prepare("INSERT INTO bugs (Name, Description, DateAdded, Module, Kind, Likes, Votes, Rate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+	$stmt -> bind_param('sssssiid', $name, $description, $date, $module, $kind, $likes, $votes, $rate);
 
 	$name = filter_var($_POST["name"], FILTER_SANITIZE_STRING);
 	$description = filter_var($_POST["description"], FILTER_SANITIZE_STRING);
 	$date = date("Y/m/d H:i:s");
+	$module = $_POST["module"];
 	$kind = $_POST["kind"];
-	$status = 'Posted';
 	$likes = 1;
 	$votes = 1;
 	$rate = 1.0;
