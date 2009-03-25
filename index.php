@@ -54,9 +54,9 @@
 		while($stmt -> fetch()) {
 			?>
 			<tr>
-				<td style="text-align:center"><?= $name ?></td>
+				<td style="text-align:center"><?= stripslashes($name) ?></td>
 				<td style="text-align:center"><?= $kind ?></td>
-				<td style="text-align:center"><?= $description ?></td>
+				<td style="text-align:center"><?= stripslashes($description) ?></td>
 				<td style="text-align:center"><input type="radio" name=<?= $id ?> value="+"/>
 				<td style="text-align:center; padding-left:4; padding-right:4"><strong><?= $score ?></strong></td>
 				<td style="text-align:center"><input type="radio" name=<?= $id ?> value="-"/>
