@@ -1,19 +1,15 @@
 <?php
-echo "0";
 require("server.php");
-echo "1";
 
 if(mysqli_connect_errno()) {
 	echo "Connection Failed: " . mysqli_connect_errno();
 	exit();
 } else {
-	echo "2";
-#	header("Location:index.php");
+	header("Location:index.php");
 }
 
 if($stmt = $skybug -> prepare("INSERT INTO bugs (Name, Description, DateAdded, Kind, Status, Likes, Votes, Rate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
-	echo "win";
-	$stmt -> bind_param('sssssiiid', $name, $description, $date, $kind, $status, $likes, $votes, $rate);
+	$stmt -> bind_param('sssssiid', $name, $description, $date, $kind, $status, $likes, $votes, $rate);
 
 	$name = filter_var($_POST["name"], FILTER_SANITIZE_STRING);
 	$description = filter_var($_POST["description"], FILTER_SANITIZE_STRING);
@@ -26,7 +22,7 @@ if($stmt = $skybug -> prepare("INSERT INTO bugs (Name, Description, DateAdded, K
 
 	$stmt -> execute();
 	$stmt -> close();
-} else echo "lose";
+}
 
 $skybug -> close();
 ?>
