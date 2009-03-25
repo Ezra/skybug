@@ -22,6 +22,11 @@
 				Feature Request
 			</label>
 			<br />
+			<label>
+				<input type="radio" name="kind" value="S"/>
+				Skybug Specific
+			</label>
+			<br />
 			<input type="submit" value="Add to Skybug"/>
 		</fieldset>
 	</form>
@@ -55,7 +60,11 @@
 			?>
 			<tr>
 				<td style="text-align:center"><?= stripslashes($name) ?></td>
-				<td style="text-align:center"><?= $kind ?></td>
+				<td style="text-align:center"><?=
+					(($kind=="B")?"Bug":
+					(($kind=="F")?"Feature":
+					(($kind=="S")?"Skybug":
+					$kind))) ?></td>
 				<td style="text-align:center"><?= stripslashes($description) ?></td>
 				<td style="text-align:center"><input type="radio" name=<?= $id ?> value="+"/>
 				<td style="text-align:center; padding-left:4; padding-right:4"><strong><?= $score ?></strong></td>
