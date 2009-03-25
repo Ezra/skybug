@@ -7,9 +7,19 @@
 				<input type="text" name="name"/>
 			</label>
 			<br />
-			<label style="margin-left: auto; margin-right: auto">
+			<label>
 				Description:<br />
 				<textarea name="description" rows="4" cols="20"></textarea>
+			</label>
+			<br />
+			<label>
+				<input type="radio" name="kind" value="B" checked="checked"/>
+				Bug Report
+			</label>
+			<br />
+			<label>
+				<input type="radio" name="kind" value="F"/>
+				Feature Request
 			</label>
 			<br />
 			<input type="submit" value="Add Bug"/>
@@ -21,6 +31,7 @@
 <table align="center" border="1px">
 	<tr>
 		<th rowspan=2>Name</th>
+		<th rowspan=2>Kind</th>
 		<th rowspan=2>Description</th>
 		<th colspan=3>Priority</th>
 	</tr>
@@ -37,13 +48,14 @@
 		exit();
 	}
 	
-	if($stmt = $skybug -> prepare("SELECT ID, Score, Name, Description FROM bugs ORDER BY Score DESC LIMIT 50")) {
+	if($stmt = $skybug -> prepare("SELECT ID, Score, Name, Description, Kind FROM bugs ORDER BY Score DESC LIMIT 50")) {
 		$stmt -> execute();
-		$stmt -> bind_result($id, $score, $name, $description);
+		$stmt -> bind_result($id, $score, $name, $description, $kind);
 		while($stmt -> fetch()) {
 			?>
 			<tr>
 				<td style="text-align:center"><?= $name ?></td>
+				<td style="text-align:center"><?= $kind ?></td>
 				<td style="text-align:center"><?= $description ?></td>
 				<td style="text-align:center"><input type="radio" name=<?= $id ?> value="+"/>
 				<td style="text-align:center; padding-left:4; padding-right:4"><strong><?= $score ?></strong></td>
@@ -66,7 +78,7 @@
 	$skybug -> close();
 	?>
 	<tr>
-		<td colspan=2 />
+		<td colspan=3 />
 		<td colspan=3 style="text-align:center">
 			<input type="submit" value="Vote"/>
 			<input type="reset" value="Clear"/>

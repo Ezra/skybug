@@ -4,6 +4,8 @@ require("server.php");
 if(mysqli_connect_errno()) {
 	echo "Connection Failed: " . mysqli_connect_errno();
 	exit();
+} else {
+	header("Location:index.php");
 }
 
 if($stmt = $skybug -> prepare("UPDATE bugs SET Score = Score + ? WHERE ID = ? LIMIT 1")) {
@@ -19,24 +21,7 @@ if($stmt = $skybug -> prepare("UPDATE bugs SET Score = Score + ? WHERE ID = ? LI
 	}
 	$stmt -> close();
 	
-	?>
-	<div style="text-align: center">
-		Your votes have been recorded.<br />
-		<a href="index.php">return</a>
-	</div>
-	<?php
-	
-} else {
-	
-	?>
-	<div style="text-align: center">
-		There was an error recording your votes. Please try again, or contact a moderator.<br />
-		<a href="index.php">return</a>
-	</div>
-	<?php
-	
 }
 
 $skybug -> close();
 ?>
-
