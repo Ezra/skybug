@@ -22,7 +22,7 @@
 				Feature Request
 			</label>
 			<br />
-			<input type="submit" value="Add Bug"/>
+			<input type="submit" value="Add to Skybug"/>
 		</fieldset>
 	</form>
 </div>
