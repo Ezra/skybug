@@ -1,5 +1,5 @@
 <?php
-$skybug = new mysqli('localhost', 'webuser', 'pilot', 'skybug');
+require("server.php");
 
 if(mysqli_connect_errno()) {
 	echo "Connection Failed: " . mysqli_connect_errno();

@@ -1,10 +1,11 @@
 <?php
+require("server.php");
+
 $name = filter_var($_POST["name"], FILTER_SANITIZE_STRING);
 $description = filter_var($_POST["description"], FILTER_SANITIZE_STRING);
 $date = date("Y/m/d H:i:s");
 $score = 1;
 $status = 'Posted';
-$skybug = new mysqli('localhost', 'webuser', 'pilot', 'skybug');
 
 if(mysqli_connect_errno()) {
 	echo "Connection Failed: " . mysqli_connect_errno();
