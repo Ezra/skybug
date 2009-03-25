@@ -121,7 +121,9 @@
 									?>
 								</td>
 								<td style="text-align:center">
-									<?= stripslashes($description) ?>
+									<?= preg_replace("|\[\[[Pp]ost:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?p=$1#$1\">Post #$1</a>",
+										preg_replace("|\[\[[Tt]opic:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?t=$1\">Topic #$1</a>",
+										stripslashes($description))) ?>
 								</td>
 							</tr>
 							<?php

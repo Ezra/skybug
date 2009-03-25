@@ -12,7 +12,10 @@ if($stmt = $skybug -> prepare("INSERT INTO bugs (Name, Description, DateAdded, M
 	$stmt -> bind_param('sssssiid', $name, $description, $date, $module, $kind, $likes, $votes, $rate);
 
 	$name = filter_var($_POST["name"], FILTER_SANITIZE_STRING);
-	$description = filter_var($_POST["description"], FILTER_SANITIZE_STRING);
+	$description = filter_var(
+		preg_replace("|http://skyrates.net/forum/viewtopic.php\?p=(\d+)(#\1)?|","[[Post:$1]]",
+		preg_replace("|http://skyrates.net/forum/viewtopic.php\?t=(\d+)|","[[Topic:$1]]",
+		$_POST["description"])),FILTER_SANITIZE_STRING);
 	$date = date("Y/m/d H:i:s");
 	$module = $_POST["module"];
 	$kind = $_POST["kind"];
