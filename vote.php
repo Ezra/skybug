@@ -11,7 +11,9 @@ if(mysqli_connect_errno()) {
 if($stmt = $skybug -> prepare("UPDATE bugs SET Votes = Votes + 1 WHERE ID = ? LIMIT 1")) {
 	$stmt -> bind_param('i', $id);
 	foreach($_POST as $id => $value) {
-		$stmt -> execute();
+		if($value == "+" || $value == "-") {
+			$stmt -> execute();
+		}
 	}
 	$stmt -> close();
 	
@@ -26,10 +28,12 @@ if($stmt = $skybug -> prepare("UPDATE bugs SET Likes = Likes + 1 WHERE ID = ? LI
 	$stmt -> close();
 	
 }
-if($stmt = $skybug -> prepare("UPDATE bugs SET Difference = Likes + Likes - Votes, Rate = Likes / Votes WHERE ID = ? LIMIT 1")) {
+if($stmt = $skybug -> prepare("UPDATE bugs SET Rate = Likes / Votes WHERE ID = ? LIMIT 1")) {
 	$stmt -> bind_param('i', $id);
 	foreach($_POST as $id => $value) {
-		$stmt -> execute();
+		if($value == "+" || $value == "-") {
+			$stmt -> execute();
+		}
 	}
 	$stmt -> close();
 	

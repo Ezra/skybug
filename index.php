@@ -1,109 +1,130 @@
-<h1 style="width: 7em; margin-left: auto; margin-right: auto">Skybug Tracker</h1>
-<div style="width:20em; margin-left: auto; margin-right: auto">
-	<form action="submit.php" method="post">
-		<fieldset>
-			<label>
-				Name:<br />
-				<input type="text" name="name"/>
-			</label>
-			<br />
-			<label>
-				Description:<br />
-				<textarea name="description" rows="4" cols="20"></textarea>
-			</label>
-			<br />
-			<label>
-				<input type="radio" name="kind" value="B" checked="checked"/>
-				Bug Report
-			</label>
-			<br />
-			<label>
-				<input type="radio" name="kind" value="F"/>
-				Feature Request
-			</label>
-			<br />
-			<label>
-				<input type="radio" name="kind" value="S"/>
-				Skybug Specific
-			</label>
-			<br />
-			<input type="submit" value="Add to Skybug"/>
-		</fieldset>
-	</form>
-</div>
-
-<form action="vote.php" method="post">
-<table align="center" border="1px">
-	<tr>
-		<th rowspan=2>Name</th>
-		<th rowspan=2>Kind</th>
-		<th rowspan=2>Description</th>
-		<th colspan=3>Priority</th>
-	</tr>
-	<tr>
-		<th>High</th>
-		<th />
-		<th>Low</th>
-	</tr>
-	<?php
-	require("server.php");
-
-	if(mysqli_connect_errno()) {
-		echo "Connection Failed: " . mysqli_connect_errno();
-		exit();
-	}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<link rel="stylesheet" type="text/css" href="skybug.css" />
+		<script src="utility.js" type="text/javascript"></script>
+		<script src="buttons.js" type="text/javascript"></script>
+	</head>
 	
-	if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Kind, Likes, Votes FROM bugs ORDER BY Rate DESC LIMIT 50")) {
-		$stmt -> execute();
-		$stmt -> bind_result($id, $name, $description, $kind, $likes, $votes);
-		while($stmt -> fetch()) {
-			?>
-			<tr>
-				<td style="text-align:center">
-					<?= stripslashes($name) ?>
-					</td>
-				<td style="text-align:center">
-					<?=
-						(($kind=="B")?"Bug":
-						(($kind=="F")?"Feature":
-						(($kind=="S")?"Skybug":
-						$kind)))
-					?>
-				</td>
-				<td style="text-align:center">
-					<?= stripslashes($description) ?>
-				</td>
-				<td style="text-align:center">
-					<input type="radio" name=<?= $id ?> value="+"/>
-				</td>
-				<td style="text-align:center; padding-left:4; padding-right:4">
-					<?= $likes."/".$votes ?>
-				</td>
-				<td style="text-align:center">
-					<input type="radio" name=<?= $id ?> value="-"/>
-				</td>
-			</tr>
-			<?php
-		}
-		$stmt -> close();
-	} else {
+	<body>
+		<h1 style="width: 7em; margin-left: auto; margin-right: auto">
+			Skybug Tracker
+		</h1>
 		
-		?>
-		<div style="text-align: center">
-			There was an error fetching the bug table. Please try again, or contact a moderator.<br />
-			<a href="index.php">return</a>
+		<div style="width:20em; margin-left: auto; margin-right: auto">
+			<form action="submit.php" method="post">
+				<fieldset>
+					<div>
+						<label>
+							Name:<br />
+							<input type="text" name="name"/>
+						</label>
+					</div>
+					<div>
+						<label>
+							Description:<br />
+							<textarea name="description" rows="4" cols="20"></textarea>
+						</label>
+					</div>
+					<div>
+						<label>
+							<input type="radio" name="kind" value="B" checked="checked"/>
+							Bug Report
+						</label>
+					</div>
+					<div>
+						<label>
+							<input type="radio" name="kind" value="F"/>
+							Feature Request
+						</label>
+					</div>
+					<div>
+						<label>
+							<input type="radio" name="kind" value="S"/>
+							Skybug Specific
+						</label>
+					</div>
+					<div>
+						<input type="submit" value="Add to Skybug"/>
+					</div>
+				</fieldset>
+			</form>
 		</div>
-		<?php
 		
-	}
-	
-	$skybug -> close();
-	?>
-	<tr>
-		<td colspan=3 />
-		<td colspan=3 style="text-align:center">
-			<input type="submit" value="Vote"/>
-			<input type="reset" value="Clear"/>
-		</td>
-	</tr>
-</table>
+		<form action="vote.php" method="post">
+		<table align="center" border="1px">
+			<tbody>
+				<tr>
+					<th>
+						Priority
+					</th>
+					<th>
+						Name
+					</th>
+					<th>
+						Kind
+					</th>
+					<th>
+						Description
+					</th>
+				</tr>
+				<?php
+				require("server.php");
+			
+				if(mysqli_connect_errno()) {
+					echo "Connection Failed: " . mysqli_connect_errno();
+					exit();
+				}
+				
+				if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Kind, Likes, Votes FROM bugs ORDER BY Rate DESC LIMIT 50")) {
+					$stmt -> execute();
+					$stmt -> bind_result($id, $name, $description, $kind, $likes, $votes);
+					while($stmt -> fetch()) {
+						?>
+						<tr>
+							<td style="text-align:center; padding-left:4; padding-right:4">
+								<button onclick=<?="\"priorityUp(".$id.");\"" ?> >+</button>
+								<?= $likes."/".$votes ?>
+								<input type="hidden" name=<?= $id ?> id=<?= "vote".$id ?> value="0" />
+								<button onclick=<?="\"priorityDown(".$id.");\"" ?> >-</button>
+							</td>
+							<td style="text-align:center">
+								<?= stripslashes($name) ?>
+								</td>
+							<td style=
+								<?="\"text-align:center; background-color:".
+									(($kind=="B")?"#FF99CC":
+									(($kind=="F")?"#CCFF99":
+									(($kind=="S")?"#99CCFF":
+									$kind)))."\""?>>
+								<?=
+									(($kind=="B")?"Bug":
+									(($kind=="F")?"Feature":
+									(($kind=="S")?"Skybug":
+									$kind)))
+								?>
+							</td>
+							<td style="text-align:center">
+								<?= stripslashes($description) ?>
+							</td>
+						</tr>
+						<?php
+					}
+					$stmt -> close();
+				} else {
+					
+					?>
+					<div style="text-align: center">
+						There was an error fetching the bug table. Please try again, or contact the System of the World.<br />
+						<a href="index.php">return</a>
+					</div>
+					<?php
+					
+				}
+				
+				$skybug -> close();
+				?>
+			</tbody>
+		</table>
+	</body>
+</html>
