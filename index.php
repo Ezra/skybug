@@ -66,6 +66,9 @@
 							Name
 						</th>
 						<th>
+							Module
+						</th>
+						<th>
 							Kind
 						</th>
 						<th>
@@ -80,9 +83,9 @@
 						exit();
 					}
 					
-					if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Kind, Likes, Votes FROM bugs ORDER BY Rate DESC LIMIT 50")) {
+					if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs ORDER BY Rate DESC LIMIT 50")) {
 						$stmt -> execute();
-						$stmt -> bind_result($id, $name, $description, $kind, $likes, $votes);
+						$stmt -> bind_result($id, $name, $description, $module, $kind, $likes, $votes);
 						while($stmt -> fetch()) {
 							?>
 							<tr>
@@ -94,18 +97,23 @@
 								</td>
 								<td style="text-align:center">
 									<?= stripslashes($name) ?>
-									</td>
+								</td>
+								<td style=
+									<?="\"text-align:center; background-color:".
+										(($module=="Skyrates")?"#99CCFF":
+										(($module=="Skybug")?"#FFCC99":
+										$module))."\""?>>
+									<?= $module ?>
+								</td>
 								<td style=
 									<?="\"text-align:center; background-color:".
 										(($kind=="B")?"#FF99CC":
 										(($kind=="F")?"#CCFF99":
-										(($kind=="S")?"#99CCFF":
-										$kind)))."\""?>>
+										$kind))."\""?>>
 									<?=
 										(($kind=="B")?"Bug":
 										(($kind=="F")?"Feature":
-										(($kind=="S")?"Skybug":
-										$kind)))
+										$kind))
 									?>
 								</td>
 								<td style="text-align:center">
