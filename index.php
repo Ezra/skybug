@@ -53,22 +53,35 @@
 		exit();
 	}
 	
-	if($stmt = $skybug -> prepare("SELECT ID, Score, Name, Description, Kind FROM bugs ORDER BY Score DESC LIMIT 50")) {
+	if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Kind, Likes, Votes FROM bugs ORDER BY Rate DESC LIMIT 50")) {
 		$stmt -> execute();
-		$stmt -> bind_result($id, $score, $name, $description, $kind);
+		$stmt -> bind_result($id, $name, $description, $kind, $likes, $votes);
 		while($stmt -> fetch()) {
 			?>
 			<tr>
-				<td style="text-align:center"><?= stripslashes($name) ?></td>
-				<td style="text-align:center"><?=
-					(($kind=="B")?"Bug":
-					(($kind=="F")?"Feature":
-					(($kind=="S")?"Skybug":
-					$kind))) ?></td>
-				<td style="text-align:center"><?= stripslashes($description) ?></td>
-				<td style="text-align:center"><input type="radio" name=<?= $id ?> value="+"/>
-				<td style="text-align:center; padding-left:4; padding-right:4"><strong><?= $score ?></strong></td>
-				<td style="text-align:center"><input type="radio" name=<?= $id ?> value="-"/>
+				<td style="text-align:center">
+					<?= stripslashes($name) ?>
+					</td>
+				<td style="text-align:center">
+					<?=
+						(($kind=="B")?"Bug":
+						(($kind=="F")?"Feature":
+						(($kind=="S")?"Skybug":
+						$kind)))
+					?>
+				</td>
+				<td style="text-align:center">
+					<?= stripslashes($description) ?>
+				</td>
+				<td style="text-align:center">
+					<input type="radio" name=<?= $id ?> value="+"/>
+				</td>
+				<td style="text-align:center; padding-left:4; padding-right:4">
+					<?= $likes."/".$votes ?>
+				</td>
+				<td style="text-align:center">
+					<input type="radio" name=<?= $id ?> value="-"/>
+				</td>
 			</tr>
 			<?php
 		}

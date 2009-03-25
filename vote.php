@@ -8,16 +8,28 @@ if(mysqli_connect_errno()) {
 	header("Location:index.php");
 }
 
-if($stmt = $skybug -> prepare("UPDATE bugs SET Score = Score + ? WHERE ID = ? LIMIT 1")) {
-	$stmt -> bind_param('ii', $inc, $id);
+if($stmt = $skybug -> prepare("UPDATE bugs SET Votes = Votes + 1 WHERE ID = ? LIMIT 1")) {
+	$stmt -> bind_param('i', $id);
+	foreach($_POST as $id => $value) {
+		$stmt -> execute();
+	}
+	$stmt -> close();
+	
+}
+if($stmt = $skybug -> prepare("UPDATE bugs SET Likes = Likes + 1 WHERE ID = ? LIMIT 1")) {
+	$stmt -> bind_param('i', $id);
 	foreach($_POST as $id => $value) {
 		if($value == "+") {
-			$inc = 1;
-			$stmt -> execute();
-		} else if($value == "-") {
-			$inc = -1;
 			$stmt -> execute();
 		}
+	}
+	$stmt -> close();
+	
+}
+if($stmt = $skybug -> prepare("UPDATE bugs SET Difference = Likes + Likes - Votes, Rate = Likes / Votes WHERE ID = ? LIMIT 1")) {
+	$stmt -> bind_param('i', $id);
+	foreach($_POST as $id => $value) {
+		$stmt -> execute();
 	}
 	$stmt -> close();
 	
