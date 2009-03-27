@@ -32,7 +32,7 @@
 		      id: 'prio_scanner',
 		      is: function(s) { return false; },
 		      format: function(s) {
-			  var posnlist = s.replace(/<\/?(button|input)([^<>]*)>|\+|-|\s/g,"").match(/\d+/g);
+			  var posnlist = s.replace(/<\/?(button|input|img)([^<>]*)>/g,"").match(/\d+/g);
 			  var pos = parseInt(posnlist[0]);
 			  var n = parseInt(posnlist[1]);
 			  if (n == 0) { return 0; }
@@ -133,10 +133,14 @@
 								?>
 								<tr id="row-<?= $id ?>">
 									<td style="text-align:center; padding-left:4; padding-right:4">
-										<button id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >+</button>
+										<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >
+										  <img src="+.png" alt="+"/>
+										</button>
 										<?= $likes."/".$votes ?>
 										<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
-										<button id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);" >-</button>
+										<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);" >
+										  <img src="-.png" alt="-"/>
+										</button>
 									</td>
 									<td style="text-align:center">
 										<?= stripslashes($name) ?>
@@ -179,10 +183,13 @@
 				</table>
 			</form>
 		</div>
-		<p style="width:88px; margin-left: auto; margin-right: auto">
-			<a href="http://validator.w3.org/check?uri=referer">
-				<img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" style="border-width:0px;" />
-			</a>
-		</p>
+	        <div id="footer">
+		  <p>Images from the <a href="http://famfamfam.com/lab/icons/silk/">Silk Icon set, by Mark James</a>. Used by CC-BY license.</p>
+		  <p style="width:88px; margin-left: auto; margin-right: auto">
+		    <a href="http://validator.w3.org/check?uri=referer">
+		      <img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" style="border-width:0px;" />
+		    </a>
+		  </p>
+	       </div>
 	</body>
 </html>
