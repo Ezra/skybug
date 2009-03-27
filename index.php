@@ -64,7 +64,7 @@
 	    <div id="results" style="margin-left:auto; margin-right: auto;">
 			<form action="vote.php" method="post">
 				<table class="sortable" border="1px">
-					<tbody>
+					<thead>
 						<tr id="row-head">
 							<th>
 								Priority
@@ -82,6 +82,8 @@
 								Description
 							</th>
 						</tr>
+					</thead>
+					<tbody>
 						<?php
 						require("server.php");
 					
@@ -96,7 +98,7 @@
 							while($stmt -> fetch()) {
 								?>
 								<tr id="row-<?= $id ?>">
-									<td style="text-align:center; padding-left:4; padding-right:4">
+									<td sorttable_customkey="<?= $votes / $likes ?>" style="text-align:center; padding-left:4; padding-right:4">
 										<button id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >+</button>
 										<?= $likes."/".$votes ?>
 										<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
