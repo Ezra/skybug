@@ -139,7 +139,7 @@
 				</table>
 			</form>
 		</div>
-<br />
+		<br />
 		<div id="submission-form" style="width:20em; margin-right: auto">
 			<form action="submit.php" method="post">
 				<fieldset>
@@ -184,17 +184,23 @@
 			</form>
 		</div>
 
-	        <div id="footer">
-		  <p>Click the table headers to sort by that column, and click the shiny buttons to approve or disapprove of an issue.
-		    Please restrain yourselves from voting multiple times - we're still working on authentication.
-		    Sorting of the Priority column is done with a Wilson Score, with a 95% confidence interval.</p>
-		  <p>Use the form above to add an issue to Skybug.</p>
-		  <p>Images from the <a href="http://famfamfam.com/lab/icons/silk/">Silk Icon set, by Mark James</a>. Used by CC-BY license.</p>
-		  <p style="width:88px; margin-left: auto; margin-right: auto">
-		    <a href="http://validator.w3.org/check?uri=referer">
-		      <img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" style="border-width:0px;" />
-		    </a>
-		  </p>
-	       </div>
+		<div id="footer">
+			<p>
+				Click the table headers to sort by that column, and click the shiny buttons to approve or disapprove of an issue.
+				Please restrain yourselves from voting multiple times - we're still working on authentication.
+				Sorting of the Priority column is done with a Wilson Score, with a 95% confidence interval.
+			</p>
+			<p>
+				Use the form above to add an issue to Skybug.
+			</p>
+			<p>
+				Images from the <a href="http://famfamfam.com/lab/icons/silk/">Silk Icon set, by Mark James</a>. Used by CC-BY license.
+			</p>
+			<p style="width:88px; margin-left: auto; margin-right: auto">
+				<a href="http://validator.w3.org/check?uri=referer">
+					<img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" style="border-width:0px;" />
+				</a>
+			</p>
+		</div>
 	</body>
 </html>
