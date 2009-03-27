@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="skybug.css" />
 		<script src="utility.js" type="text/javascript"></script>
 		<script src="buttons.js" type="text/javascript"></script>
+		<script src="sorttable.js" type="text/javascript"></script>
 	</head>
 	
 	<body>
@@ -62,7 +63,7 @@
 		
 	    <div id="results" style="margin-left:auto; margin-right: auto;">
 			<form action="vote.php" method="post">
-				<table border="1px">
+				<table class="sortable" border="1px">
 					<tbody>
 						<tr id="row-head">
 							<th>
