@@ -53,7 +53,7 @@
 
 	    <div id="results" style="margin-left:auto; margin-right: auto;">
 			<form action="vote.php" method="post">
-				<table id="bugTable" class="sortable" border="1px">
+				<table id="bugTable" border="1px">
 					<thead>
 						<tr id="row-head">
 							<th>
