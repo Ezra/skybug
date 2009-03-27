@@ -88,13 +88,13 @@
 							while($stmt -> fetch()) {
 								?>
 								<tr id="row-<?= $id ?>">
-									<td style="text-align:center; padding-left:4; padding-right:4">
-										<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" style="padding:0px;" >
+									<td style="text-align:center; padding:0px;">
+										<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >
 											<img src="+.png" alt="+"/>
 										</button>
 										<?= $likes."/".$votes ?>
 										<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
-										<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);" style="padding:0px;" >
+										<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);">
 											<img src="-.png" alt="-"/>
 										</button>
 									</td>
