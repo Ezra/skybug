@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 		<title>Skybug Tracker</title>
 		<link rel="stylesheet" type="text/css" href="skybug.css" />
 		<script src="utility.js" type="text/javascript"></script>
@@ -44,12 +45,12 @@
 					<div style="float:right; text-align: right">
 						<label style="text-align:right">
 							Bug Report
-							<input type="radio" name="kind" value="B" checked="checked"/>
+							<input type="radio" name="kind" value="Bug" checked="checked"/>
 						</label>
 						<br />
 						<label style="text-align:right">
 							Feature Request
-							<input type="radio" name="kind" value="F"/>
+							<input type="radio" name="kind" value="Feature"/>
 						</label>
 					</div>
 					<div>
@@ -59,9 +60,9 @@
 			</form>
 		</div>
 		
-		<div style="margin-left:auto; margin-right: auto;">
-			<table border="1px">
-				<form action="vote.php" method="post">
+	    <div id="results" style="margin-left:auto; margin-right: auto;">
+			<form action="vote.php" method="post">
+				<table border="1px">
 					<tbody>
 						<tr id="row-head">
 							<th>
@@ -95,10 +96,10 @@
 								?>
 								<tr id="row-<?= $id ?>">
 									<td style="text-align:center; padding-left:4; padding-right:4">
-										<button onclick="priorityUp(<?= $id ?>);" >+</button>
+										<button id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >+</button>
 										<?= $likes."/".$votes ?>
 										<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
-										<button onclick="priorityDown(<?= $id ?>);" >-</button>
+										<button id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);" >-</button>
 									</td>
 									<td style="text-align:center">
 										<?= stripslashes($name) ?>
@@ -110,14 +111,10 @@
 										<?= $module ?>
 									</td>
 									<td style="text-align:center; background-color:<?=
-											(($kind=="B")?"#FF99CC":
-											(($kind=="F")?"#CCFF99":
+											(($kind=="Bug")?"#FF99CC":
+											(($kind=="Feature")?"#CCFF99":
 											$kind)) ?>">
-										<?=
-											(($kind=="B")?"Bug":
-											(($kind=="F")?"Feature":
-											$kind))
-										?>
+										<?=	$kind ?>
 									</td>
 									<td style="text-align:center">
 										<?= preg_replace("|\[\[[Pp]ost:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?p=$1#$1\">Post #$1</a>",
@@ -142,8 +139,8 @@
 						$skybug -> close();
 						?>
 					</tbody>
-				</form>
-			</table>
+				</table>
+			</form>
 		</div>
 		<p style="width:88px; margin-left: auto; margin-right: auto">
 			<a href="http://validator.w3.org/check?uri=referer">
