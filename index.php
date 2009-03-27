@@ -47,11 +47,100 @@
 	</head>
 
 	<body>
-		<h1 id="heading" style="width: 7em; margin-left: auto; margin-right: auto; text-align: center;">
+		<h1 id="heading" style="margin-left: auto; margin-right: auto; text-align: center;">
 			Skybug Tracker
 		</h1>
 
-		<div id="submission-form" style="width:20em; margin-left: auto; margin-right: auto">
+	    <div id="results" style="margin-left:auto; margin-right: auto;">
+			<form action="vote.php" method="post">
+				<table id="bugTable" class="sortable" border="1px">
+					<thead>
+						<tr id="row-head">
+							<th>
+								Priority
+							</th>
+							<th>
+								Name
+							</th>
+							<th>
+								Module
+							</th>
+							<th>
+								Kind
+							</th>
+							<th>
+								Description
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						require("server.php");
+
+						if(mysqli_connect_errno()) {
+							echo "Connection Failed: " . mysqli_connect_errno();
+							exit();
+						}
+
+						if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs")) {
+							$stmt -> execute();
+							$stmt -> bind_result($id, $name, $description, $module, $kind, $likes, $votes);
+							while($stmt -> fetch()) {
+								?>
+								<tr id="row-<?= $id ?>">
+									<td style="text-align:center; padding-left:4; padding-right:4">
+										<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >
+										  <img src="+.png" alt="+"/>
+										</button>
+										<?= $likes."/".$votes ?>
+										<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
+										<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);" >
+										  <img src="-.png" alt="-"/>
+										</button>
+									</td>
+									<td style="text-align:center">
+										<?= stripslashes($name) ?>
+									</td>
+									<td style="text-align:center; background-color:<?=
+											(($module=="Skyrates")?"#99CCFF":
+											(($module=="Skybug")?"#FFCC99":
+											$module)) ?>">
+										<?= $module ?>
+									</td>
+									<td style="text-align:center; background-color:<?=
+											(($kind=="Bug")?"#FF99CC":
+											(($kind=="Feature")?"#CCFF99":
+											$kind)) ?>">
+										<?=	$kind ?>
+									</td>
+									<td style="text-align:center">
+										<?= preg_replace("|\[\[[Pp]ost:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?p=$1#$1\">Post #$1</a>",
+											preg_replace("|\[\[[Tt]opic:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?t=$1\">Topic #$1</a>",
+											stripslashes($description))) ?>
+									</td>
+								</tr>
+								<?php
+							}
+							$stmt -> close();
+						} else {
+
+							?>
+							<div style="text-align: center">
+								There was an error fetching the bug table. Please try again, or contact Eskay for help.<br />
+								<a href="index.php">return</a>
+							</div>
+							<?php
+
+						}
+
+						$skybug -> close();
+						?>
+					</tbody>
+				</table>
+			</form>
+		</div>
+<br />
+		<div id="submission-form" style="width:20em; margin-right: auto">
 			<form action="submit.php" method="post">
 				<fieldset>
 					<div>
@@ -94,96 +183,12 @@
 				</fieldset>
 			</form>
 		</div>
-		
-	    <div id="results" style="margin-left:auto; margin-right: auto;">
-			<form action="vote.php" method="post">
-				<table id="bugTable" class="sortable" border="1px">
-					<thead>
-						<tr id="row-head">
-							<th>
-								Priority
-							</th>
-							<th>
-								Name
-							</th>
-							<th>
-								Module
-							</th>
-							<th>
-								Kind
-							</th>
-							<th>
-								Description
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						require("server.php");
-					
-						if(mysqli_connect_errno()) {
-							echo "Connection Failed: " . mysqli_connect_errno();
-							exit();
-						}
-						
-						if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs")) {
-							$stmt -> execute();
-							$stmt -> bind_result($id, $name, $description, $module, $kind, $likes, $votes);
-							while($stmt -> fetch()) {
-								?>
-								<tr id="row-<?= $id ?>">
-									<td style="text-align:center; padding-left:4; padding-right:4">
-										<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >
-										  <img src="+.png" alt="+"/>
-										</button>
-										<?= $likes."/".$votes ?>
-										<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
-										<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);" >
-										  <img src="-.png" alt="-"/>
-										</button>
-									</td>
-									<td style="text-align:center">
-										<?= stripslashes($name) ?>
-									</td>
-									<td style="text-align:center; background-color:<?=
-											(($module=="Skyrates")?"#99CCFF":
-											(($module=="Skybug")?"#FFCC99":
-											$module)) ?>">
-										<?= $module ?>
-									</td>
-									<td style="text-align:center; background-color:<?=
-											(($kind=="Bug")?"#FF99CC":
-											(($kind=="Feature")?"#CCFF99":
-											$kind)) ?>">
-										<?=	$kind ?>
-									</td>
-									<td style="text-align:center">
-										<?= preg_replace("|\[\[[Pp]ost:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?p=$1#$1\">Post #$1</a>",
-											preg_replace("|\[\[[Tt]opic:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?t=$1\">Topic #$1</a>",
-											stripslashes($description))) ?>
-									</td>
-								</tr>
-								<?php
-							}
-							$stmt -> close();
-						} else {
-							
-							?>
-							<div style="text-align: center">
-								There was an error fetching the bug table. Please try again, or contact Eskay for help.<br />
-								<a href="index.php">return</a>
-							</div>
-							<?php
-							
-						}
-						
-						$skybug -> close();
-						?>
-					</tbody>
-				</table>
-			</form>
-		</div>
+
 	        <div id="footer">
+		  <p>Click the table headers to sort by that column, and click the shiny buttons to approve or disapprove of an issue.
+		    Please restrain yourselves from voting multiple times - we're still working on authentication.
+		    Sorting of the Priority column is done with a Wilson Score, with a 95% confidence interval.</p>
+		  <p>Use the form above to add an issue to Skybug.</p>
 		  <p>Images from the <a href="http://famfamfam.com/lab/icons/silk/">Silk Icon set, by Mark James</a>. Used by CC-BY license.</p>
 		  <p style="width:88px; margin-left: auto; margin-right: auto">
 		    <a href="http://validator.w3.org/check?uri=referer">
