@@ -1,5 +1,13 @@
 /* Buttons. Code by Kevin Hale, taken from http://particletree.com/features/rediscovering-the-button-element/ , used by CC-BY license*/
 
+button.positive{
+    float:left;
+}
+
+button.negative{
+    float:right;
+}
+
 button{
     margin:0 0 0 0;
     background-color:#fff;

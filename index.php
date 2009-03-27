@@ -56,19 +56,19 @@
 				<table id="bugTable" border="1px">
 					<thead>
 						<tr id="row-head">
-							<th width="10%">
+							<th width="8%">
 								Priority
 							</th>
-							<th>
+							<th width="20%">
 								Name
 							</th>
-							<th>
+							<th width="5%">
 								Module
 							</th>
-							<th>
+							<th width="5%">
 								Kind
 							</th>
-							<th>
+							<th width="50%">
 								Description
 							</th>
 						</tr>
@@ -92,10 +92,10 @@
 										<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >
 											<img src="+.png" alt="+"/>
 										</button>
-										<?= $likes."/".$votes ?>
 										<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);">
 											<img src="-.png" alt="-"/>
 										</button>
+										<?= $likes."/".$votes ?>
 										<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
 									</td>
 									<td style="text-align:center">
