@@ -9,14 +9,48 @@
 		<link rel="stylesheet" type="text/css" href="skybug.css" />
 		<script src="utility.js" type="text/javascript"></script>
 		<script src="buttons.js" type="text/javascript"></script>
-		<script src="sorttable.js" type="text/javascript"></script>
+		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+		<script type="text/javascript">
+			// You may specify partial version numbers, such as "1" or "1.3",
+			// with the same result. Doing so will automatically load the
+			// latest version matching that partial revision pattern
+			// (i.e. both 1 and 1.3 would load 1.3.1 today).
+			
+			google.load("jquery", "1.3");
+			
+			google.setOnLoadCallback(function() {
+				// Place init code here instead of $(document).ready()
+				$("#bugTable").tablesorter({
+					headers: { 0: { sorter: 'prio_scanner' }},
+					sortList: [[0,1],[2,0],[3,0]]
+				});
+			});
+		</script>
+		<script type="text/javascript" src="jquery.tablesorter.min.js"></script>
+		<script type="text/javascript">
+			$.tablesorter.addParser({
+				id: 'prio_scanner',
+				is: function(s) { return false; },
+				format: function(s) {
+					var posnlist = s.replace(/<\/?(button|input)([^<>]*)>|\+|-|\s/g,"").match(/\d+/g);
+					var pos = parseInt(posnlist[0]);
+					var n = parseInt(posnlist[1]);
+					if (n == 0) { return 0; }
+					var z = 1.96; // The z-score of the 0.05 confidence interval
+					var phat = pos/n;
+					var value = (phat + (z*z)/(2*n) - z*Math.sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n);
+					return value;
+				},
+				type: 'numeric'
+			});
+		</script>
 	</head>
-	
+
 	<body>
 		<h1 id="heading" style="width: 7em; margin-left: auto; margin-right: auto; text-align: center;">
 			Skybug Tracker
 		</h1>
-		
+
 		<div id="submission-form" style="width:20em; margin-left: auto; margin-right: auto">
 			<form action="submit.php" method="post">
 				<fieldset>
@@ -63,7 +97,7 @@
 		
 	    <div id="results" style="margin-left:auto; margin-right: auto;">
 			<form action="vote.php" method="post">
-				<table class="sortable" border="1px">
+				<table id="bugTable" class="sortable" border="1px">
 					<thead>
 						<tr id="row-head">
 							<th>
@@ -92,7 +126,7 @@
 							exit();
 						}
 						
-						if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs ORDER BY Rate DESC LIMIT 50")) {
+						if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs")) {
 							$stmt -> execute();
 							$stmt -> bind_result($id, $name, $description, $module, $kind, $likes, $votes);
 							while($stmt -> fetch()) {
