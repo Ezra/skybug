@@ -51,12 +51,12 @@
 			Skybug Tracker
 		</h1>
 
-	    <div id="results" style="margin-left:auto; margin-right: auto;">
+	    <div id="results" style="width: 90%; margin-left:auto; margin-right: auto;">
 			<form action="vote.php" method="post">
 				<table id="bugTable" border="1px">
 					<thead>
 						<tr id="row-head">
-							<th>
+							<th width="10%">
 								Priority
 							</th>
 							<th>
@@ -93,10 +93,10 @@
 											<img src="+.png" alt="+"/>
 										</button>
 										<?= $likes."/".$votes ?>
-										<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
 										<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);">
 											<img src="-.png" alt="-"/>
 										</button>
+										<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
 									</td>
 									<td style="text-align:center">
 										<?= stripslashes($name) ?>
@@ -140,7 +140,7 @@
 			</form>
 		</div>
 		<br />
-		<div id="submission-form" style="width:20em; margin-right: auto">
+		<div id="submission-form" style="width:20em; margin-left: auto; margin-right: auto">
 			<form action="submit.php" method="post">
 				<fieldset>
 					<div>

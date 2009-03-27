@@ -1,8 +1,6 @@
 /* Buttons. Code by Kevin Hale, taken from http://particletree.com/features/rediscovering-the-button-element/ , used by CC-BY license*/
 
 button{
-    display:block;
-    float:left;
     margin:0 0 0 0;
     background-color:#fff;
     border:0px;
