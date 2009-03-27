@@ -89,13 +89,13 @@
 								?>
 								<tr id="row-<?= $id ?>">
 									<td style="text-align:center; padding-left:4; padding-right:4">
-										<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" style="padding:0px;" >
-											<img src="+.png" alt="+"/>
+										<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" style="padding:0px; margin: 0px;" >
+											<img src="+.png" alt="+" style="padding:0px; margin: 0px;" />
 										</button>
 										<?= $likes."/".$votes ?>
 										<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
-										<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);" style="padding:0px;" >
-											<img src="-.png" alt="-"/>
+										<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);" style="padding:0px; margin: 0px;" >
+											<img src="-.png" alt="-" style="padding:0px; margin: 0px;" />
 										</button>
 									</td>
 									<td style="text-align:center">
