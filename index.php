@@ -28,22 +28,22 @@
 		</script>
 		<script type="text/javascript" src="jquery.tablesorter.min.js"></script>
 		<script type="text/javascript">
-		  $.tablesorter.addParser({
-		      id: 'prio_scanner',
-		      is: function(s) { return false; },
-		      format: function(s) {
-			  var posnlist = s.replace(/<\/?(button|input|img)([^<>]*)>/g,"").match(/\d+/g);
-			  var pos = parseInt(posnlist[0]);
-			  var n = parseInt(posnlist[1]);
-			  if (n == 0) { return 0; }
-			  var z = 1.96; // The z-score of the 0.05 confidence interval
-			  var phat = pos/n;
-			  var value = (phat + (z*z)/(2*n) - z*Math.sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n);
-			  return value;
-		      },
-		      type: 'numeric'
-		  });
-		  </script>
+			$.tablesorter.addParser({
+				id: 'prio_scanner',
+				is: function(s) { return false; },
+				format: function(s) {
+					var posnlist = s.replace(/<\/?(button|input|img)([^<>]*)>/g,"").match(/\d+/g);
+					var pos = parseInt(posnlist[0]);
+					var n = parseInt(posnlist[1]);
+					if (n == 0) { return 0; }
+					var z = 1.96; // The z-score of the 0.05 confidence interval
+					var phat = pos/n;
+					var value = (phat + (z*z)/(2*n) - z*Math.sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n);
+					return value;
+				},
+				type: 'numeric'
+			});
+			</script>
 	</head>
 
 	<body>
@@ -90,12 +90,12 @@
 								<tr id="row-<?= $id ?>">
 									<td style="text-align:center; padding-left:4; padding-right:4">
 										<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >
-										  <img src="+.png" alt="+"/>
+											<img src="+.png" alt="+"/>
 										</button>
 										<?= $likes."/".$votes ?>
 										<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
 										<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);" >
-										  <img src="-.png" alt="-"/>
+											<img src="-.png" alt="-"/>
 										</button>
 									</td>
 									<td style="text-align:center">
