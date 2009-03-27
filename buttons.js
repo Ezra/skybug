@@ -1,9 +1,9 @@
 function priorityUp(id) {
-	$("vote"+id).value="+";
+	getById("vote"+id).value="+";
 }
 
 function priorityDown(id) {
-	$("vote"+id).value="-";
+	getById("vote"+id).value="-";
 }
 
 function priorityReset() {
