@@ -43,7 +43,7 @@
 				},
 				type: 'numeric'
 			});
-			</script>
+		</script>
 	</head>
 
 	<body>
@@ -75,65 +75,65 @@
 					</thead>
 					<tbody>
 						<?php
-						require("server.php");
+							require("server.php");
 
-						if(mysqli_connect_errno()) {
-							echo "Connection Failed: " . mysqli_connect_errno();
-							exit();
-						}
-
-						if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs")) {
-							$stmt -> execute();
-							$stmt -> bind_result($id, $name, $description, $module, $kind, $likes, $votes);
-							while($stmt -> fetch()) {
-								?>
-								<tr id="row-<?= $id ?>">
-									<td style="text-align:center; padding:0px;">
-										<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >
-											<img src="+.png" alt="+"/>
-										</button>
-										<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);">
-											<img src="-.png" alt="-"/>
-										</button>
-										<?= $likes."/".$votes ?>
-										<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
-									</td>
-									<td style="text-align:center">
-										<?= stripslashes($name) ?>
-									</td>
-									<td style="text-align:center; background-color:<?=
-											(($module=="Skyrates")?"#99CCFF":
-											(($module=="Skybug")?"#FFCC99":
-											$module)) ?>">
-										<?= $module ?>
-									</td>
-									<td style="text-align:center; background-color:<?=
-											(($kind=="Bug")?"#FF99CC":
-											(($kind=="Feature")?"#CCFF99":
-											$kind)) ?>">
-										<?=	$kind ?>
-									</td>
-									<td style="text-align:center">
-										<?= preg_replace("|\[\[[Pp]ost:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?p=$1#$1\">Post #$1</a>",
-											preg_replace("|\[\[[Tt]opic:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?t=$1\">Topic #$1</a>",
-											stripslashes($description))) ?>
-									</td>
-								</tr>
-								<?php
+							if(mysqli_connect_errno()) {
+								echo "Connection Failed: " . mysqli_connect_errno();
+								exit();
 							}
-							$stmt -> close();
-						} else {
 
-							?>
-							<div style="text-align: center">
-								There was an error fetching the bug table. Please try again, or contact Eskay for help.<br />
-								<a href="index.php">return</a>
-							</div>
-							<?php
+							if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs")) {
+								$stmt -> execute();
+								$stmt -> bind_result($id, $name, $description, $module, $kind, $likes, $votes);
+								while($stmt -> fetch()) {
+									?>
+										<tr id="row-<?= $id ?>">
+											<td style="text-align:center; padding:0px;">
+												<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >
+													<img src="+.png" alt="+"/>
+												</button>
+												<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);">
+													<img src="-.png" alt="-"/>
+												</button>
+												<?= $likes."/".$votes ?>
+												<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
+											</td>
+											<td style="text-align:center">
+												<?= stripslashes($name) ?>
+											</td>
+											<td style="text-align:center; background-color:<?=
+													(($module=="Skyrates")?"#99CCFF":
+													(($module=="Skybug")?"#FFCC99":
+													$module)) ?>">
+												<?= $module ?>
+											</td>
+											<td style="text-align:center; background-color:<?=
+													(($kind=="Bug")?"#FF99CC":
+													(($kind=="Feature")?"#CCFF99":
+													$kind)) ?>">
+												<?=	$kind ?>
+											</td>
+											<td style="text-align:center">
+												<?= preg_replace("|\[\[[Pp]ost:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?p=$1#$1\">Post #$1</a>",
+													preg_replace("|\[\[[Tt]opic:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?t=$1\">Topic #$1</a>",
+													stripslashes($description))) ?>
+											</td>
+										</tr>
+									<?php
+								}
+								$stmt -> close();
+							} else {
 
-						}
+								?>
+									<div style="text-align: center">
+										There was an error fetching the bug table. Please try again, or contact Eskay for help.<br />
+										<a href="index.php">return</a>
+									</div>
+								<?php
 
-						$skybug -> close();
+							}
+
+							$skybug -> close();
 						?>
 					</tbody>
 				</table>
