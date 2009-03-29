@@ -27,23 +27,7 @@
 			});
 		</script>
 		<script type="text/javascript" src="jquery.tablesorter.min.js"></script>
-		<script type="text/javascript">
-			$.tablesorter.addParser({
-				id: 'prio_scanner',
-				is: function(s) { return false; },
-				format: function(s) {
-					var posnlist = s.replace(/<\/?(button|input|img)([^<>]*)>/g,"").match(/\d+/g);
-					var pos = parseInt(posnlist[0]);
-					var n = parseInt(posnlist[1]);
-					if (n == 0) { return 0; }
-					var z = 1.96; // The z-score of the 0.05 confidence interval
-					var phat = pos/n;
-					var value = (phat + (z*z)/(2*n) - z*Math.sqrt((phat*(1-phat)+z*z/(4*n))/n))/(1+z*z/n);
-					return value;
-				},
-				type: 'numeric'
-			});
-		</script>
+		<script type="text/javascript" src="tablesort.js"></script>
 	</head>
 
 	<body>
@@ -51,24 +35,24 @@
 			Skybug Tracker
 		</h1>
 
-	    <div id="results" style="width: 90%; margin-left:auto; margin-right: auto;">
+	    <div id="results" style="width: 90%; margin-left:auto; margin-right: auto; margin-bottom: 2em;">
 			<form action="vote.php" method="post">
 				<table id="bugTable" border="1px">
 					<thead>
 						<tr id="row-head">
-							<th width="8%">
+							<th style="width:8%">
 								Priority
 							</th>
-							<th width="20%">
+							<th style="width:20%">
 								Name
 							</th>
-							<th width="5%">
+							<th style="width:5%">
 								Module
 							</th>
-							<th width="5%">
+							<th style="width:5%">
 								Kind
 							</th>
-							<th width="50%">
+							<th style="width:50%">
 								Description
 							</th>
 						</tr>
@@ -139,7 +123,6 @@
 				</table>
 			</form>
 		</div>
-		<br />
 		<div id="submission-form" style="width:20em; margin-left: auto; margin-right: auto">
 			<form action="submit.php" method="post">
 				<fieldset>
@@ -198,7 +181,7 @@
 			</p>
 			<p style="width:88px; margin-left: auto; margin-right: auto">
 				<a href="http://validator.w3.org/check?uri=referer">
-					<img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" width="88" style="border-width:0px;" />
+					<img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" style="width:88; border-width:0px;" />
 				</a>
 			</p>
 		</div>
