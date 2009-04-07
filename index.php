@@ -87,8 +87,10 @@
 											</td>
 											<td style="text-align:center; background-color:<?=
 													(($module=="Skyrates")?"#99CCFF":
+													(($module=="Skydevs")?"#99FFCC":
 													(($module=="Skybug")?"#FFCC99":
-													$module)) ?>">
+													(($module=="Webskyte")?"#CC99FF":
+													$module)))) ?>">
 												<?= $module ?>
 											</td>
 											<td style="text-align:center; background-color:<?=
