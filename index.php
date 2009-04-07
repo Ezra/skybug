@@ -11,13 +11,7 @@
 		<script src="buttons.js" type="text/javascript"></script>
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 		<script type="text/javascript">
-			// You may specify partial version numbers, such as "1" or "1.3",
-			// with the same result. Doing so will automatically load the
-			// latest version matching that partial revision pattern
-			// (i.e. both 1 and 1.3 would load 1.3.1 today).
-			
 			google.load("jquery", "1.3");
-			
 			google.setOnLoadCallback(function() {
 				// Place init code here instead of $(document).ready()
 				$("#bugTable").tablesorter({
@@ -31,30 +25,20 @@
 	</head>
 
 	<body>
-		<h1 id="heading" style="margin-left: auto; margin-right: auto; text-align: center;">
+		<h1 id="heading" class="centered automargined">
 			Skybug Tracker
 		</h1>
 
-	    <div id="results" style="width: 90%; margin-left:auto; margin-right: auto; margin-bottom: 2em;">
+	    <div id="results" class="automargined" style="width: 90%; margin-bottom: 2em;">
 			<form action="vote.php" method="post">
 				<table id="bugTable" border="1px">
 					<thead>
 						<tr id="row-head">
-							<th style="width:8%">
-								Priority
-							</th>
-							<th style="width:20%">
-								Name
-							</th>
-							<th style="width:5%">
-								Module
-							</th>
-							<th style="width:5%">
-								Kind
-							</th>
-							<th style="width:50%">
-								Description
-							</th>
+							<th style="width:8%">Priority</th>
+							<th style="width:20%">Name</th>
+							<th style="width:5%">Module</th>
+							<th style="width:5%">Kind</th>
+							<th style="width:50%">Description</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -72,7 +56,7 @@
 								while($stmt -> fetch()) {
 									?>
 										<tr id="row-<?= $id ?>">
-											<td style="text-align:center; padding:0px;">
+											<td style="padding:0px;">
 												<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >
 													<img src="+.png" alt="+"/>
 												</button>
@@ -82,24 +66,18 @@
 												<?= $likes."/".$votes ?>
 												<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
 											</td>
-											<td style="text-align:center">
+											<td>
 												<?= stripslashes($name) ?>
 											</td>
-											<td style="text-align:center; background-color:<?=
-													(($module=="Skyrates")?"#99CCFF":
-													(($module=="Skybug")?"#FFCC99":
-													$module)) ?>">
+											<td class="<?=$module?>">
 												<?= $module ?>
 											</td>
-											<td style="text-align:center; background-color:<?=
-													(($kind=="Bug")?"#FF99CC":
-													(($kind=="Feature")?"#CCFF99":
-													$kind)) ?>">
-												<?=	$kind ?>
+											<td class="<?=$kind?>">
+												<?=$kind ?>
 											</td>
-											<td style="text-align:center">
-												<?= preg_replace("|\[\[[Pp]ost:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?p=$1#$1\">Post #$1</a>",
-													preg_replace("|\[\[[Tt]opic:(\d+)\]\]|", "<a href=\"http://skyrates.net/forum/viewtopic.php?t=$1\">Topic #$1</a>",
+											<td>
+												<?= preg_replace("|\[\[Post:(\d+)\]\]|i", "<a href=\"http://skyrates.net/forum/viewtopic.php?p=$1#$1\">Post #$1</a>",
+													preg_replace("|\[\[Topic:(\d+)\]\]|i", "<a href=\"http://skyrates.net/forum/viewtopic.php?t=$1\">Topic #$1</a>",
 													stripslashes($description))) ?>
 											</td>
 										</tr>
@@ -109,7 +87,7 @@
 							} else {
 
 								?>
-									<div style="text-align: center">
+									<div class="centered">
 										There was an error fetching the bug table. Please try again, or contact Eskay for help.<br />
 										<a href="index.php">return</a>
 									</div>
@@ -123,18 +101,16 @@
 				</table>
 			</form>
 		</div>
-		<div id="submission-form" style="width:20em; margin-left: auto; margin-right: auto">
+		<div id="submission-form" class="automargined" style="width:20em;">
 			<form action="submit.php" method="post">
 				<fieldset>
 					<div>
-						<label>
-							Name:<br />
+						<label>Name:<br />
 							<input type="text" name="name"/>
 						</label>
 					</div>
 					<div>
-						<label>
-							Description:<br />
+						<label>Description:<br />
 							<textarea name="description" rows="4" cols="20"></textarea>
 						</label>
 					</div>
@@ -150,12 +126,12 @@
 						</label>
 					</div>
 					<div style="float:right; text-align: right">
-						<label style="text-align:right">
+						<label>
 							Bug Report
 							<input type="radio" name="kind" value="Bug" checked="checked"/>
 						</label>
 						<br />
-						<label style="text-align:right">
+						<label>
 							Feature Request
 							<input type="radio" name="kind" value="Feature"/>
 						</label>
@@ -179,7 +155,7 @@
 			<p>
 				Images from the <a href="http://famfamfam.com/lab/icons/silk/">Silk Icon set, by Mark James</a>. Used by CC-BY license.
 			</p>
-			<p style="width:88px; margin-left: auto; margin-right: auto">
+			<p class="automargined" style="width:88px;">
 				<a href="http://validator.w3.org/check?uri=referer">
 					<img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" style="width:88; border-width:0px;" />
 				</a>
