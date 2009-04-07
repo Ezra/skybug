@@ -1,3 +1,15 @@
+.automargined { margin-left: auto; margin-right: auto; }
+.centered { text-align: center; }
+
+td { text-align: center; }
+
+td.Skyrates { background-color: #99ccff; }
+td.Skybug { background-color: #ffcc99; }
+td.Skydevs { background-color: #99ffcc; }
+td.Webskyte { background-color: #cc99ff; }
+td.Bug { background-color: #ff99cc; }
+td.Feature { background-color: #ccff99; }
+
 /* Buttons. Code by Kevin Hale, taken from http://particletree.com/features/rediscovering-the-button-element/ , used by CC-BY license*/
 
 button.positive{
