@@ -41,7 +41,7 @@
 			Skybug Tracker
 		</h1>
 
-	  <div id="results" class="automargined" style="width: 90%">
+	  <div id="results" class="automargined" style="width: 95%">
 			<table id="bugTable" class="tablesorter">
 				<thead>
 					<tr id="row-head">
@@ -67,14 +67,14 @@
 							while($stmt -> fetch()) {
 								?>
 					<tr id="row<?= $id ?>">
-						<td style="padding:0px;">
+						<td class="centered" style="padding:0px;">
 							<button class="positive" id="up<?= $id ?>" onclick="do_vote(<?=$id?>,'up');" >
 								<img src="+.png" alt="+"/>
-							</button>
-							<button class="negative" id="down<?= $id ?>" onclick="do_vote(<?=$id?>,'down');">
+                                                        </button>
+                                                        <div id="score<?= $id ?>"><?= $likes."/".$votes ?></div>
+                                                        <button class="negative" id="down<?= $id ?>" onclick="do_vote(<?=$id?>,'down');">
 								<img src="-.png" alt="-"/>
 							</button>
-							<div id="score<?= $id ?>"><?= $likes."/".$votes ?></div>
 						</td>
 						<td>
 							<?= stripslashes($name) ?>

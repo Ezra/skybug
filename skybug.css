@@ -2,7 +2,7 @@
 .centered { text-align: center; }
 .topspaced { margin-top: 15px; }
 
-td { text-align: center; }
+.centered * { display: inline-block; text-align:left;}
 
 td.Skyrates { background-color: #99ccff !important; }
 td.Skybug { background-color: #ffcc99 !important; }
@@ -46,11 +46,11 @@ button[type]{
     padding:0px 0px 0px 0px; /* IE7 */
 }
 button img {
-    margin:-3px -3px -3px -3px !important;
+    margin:-2px -2px -2px -2px !important;
     padding:0;
     border:none;
-    width:16px;
-    height:16px;
+    width:14px;
+    height:14px;
 }
 
 button.submit {
@@ -71,7 +71,6 @@ button:hover{
 
 button.positive{
     color:#529214;
-    float:left;
 }
 button.positive:hover{
     background-color:#E6EFC2;
@@ -80,7 +79,6 @@ button.positive:hover{
 
 button.negative{
     color:#d12f19;
-    float:right;
 }
 button.negative:hover{
     background:#fbe3e4;
@@ -102,13 +100,15 @@ body {
 table.tablesorter {
 	margin:10px 0pt 15px;
 	width: 100%;
-	text-align: left;
+	text-align: center;
+	vertical-align: center;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
 	background-color: #e6EEEE;
 	border: 1px solid #FFF;
 	font-size: 8pt;
 	padding: 4px;
+        text-align: left;
 }
 table.tablesorter thead tr .header {
 	background-image: url(bg.gif);
@@ -120,7 +120,6 @@ table.tablesorter tbody td {
 	color: #3D3D3D;
 	padding: 4px;
 	background-color: #FFF;
-	vertical-align: center;
         border: 1px solid #555;
 }
 table.tablesorter tbody tr.odd td {
