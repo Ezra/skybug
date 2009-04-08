@@ -9,26 +9,28 @@
 		<link rel="stylesheet" type="text/css" href="skybug.css" />
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 		<script type="text/javascript">
+			var sorter = [[0,1],[2,0],[3,0]];
+
 			google.load("jquery", "1.3");
 			google.setOnLoadCallback(function() {
 				// Place init code here instead of $(document).ready()
 				$("#bugTable").tablesorter({
 					headers: { 0: { sorter: 'prio_scanner' }},
-					sortList: [[0,1],[2,0],[3,0]]
+					sortList: sorter
 				});
 			});
-		</script>
-		<script type="text/javascript" src="jquery.tablesorter.min.js"></script>
-		<script type="text/javascript" src="tablesort.js"></script>
-		<script type="text/javascript">
 			function do_vote(vote_id, pres) {
 				$.post("vote.php", {id: vote_id, dir: pres}, function(newscore) {
 					$("#" + "up" + vote_id).removeClass("pressed");
 					$("#" + "down" + vote_id).removeClass("pressed");
 					$("#" + pres + vote_id).addClass("pressed");
-					$("#" + "score" + vote_id).childNodes[0].data = newscore;
+					$("#" + "score" + vote_id).html(newscore);
+					$("#bugTable").trigger("update");
+					$("#bugTable").trigger("sorton",[sorter]);
 			})}
 		</script>
+		<script type="text/javascript" src="jquery.tablesorter.min.js"></script>
+		<script type="text/javascript" src="tablesort.js"></script>
 	</head>
 
 	<body>
