@@ -146,7 +146,7 @@
 						</label>
 					</div>
 					<div>
-						<input type="submit" value="Add to Skybug"/>
+						<button class="submit" type="submit" value="submit">Add to Skybug</button>
 					</div>
 				</fieldset>
 			</form>

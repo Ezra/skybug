@@ -53,6 +53,17 @@ button img {
     height:16px;
 }
 
+button.submit {
+    border: 2px outset #555;
+    margin: 1em;
+    color: #000;
+    font-size: 105%;
+}
+
+button.submit:active{
+    border-style: inset;
+}
+
 button:hover{
     background-color:#dff4ff;
     color:#336699;
@@ -109,7 +120,7 @@ table.tablesorter tbody td {
 	color: #3D3D3D;
 	padding: 4px;
 	background-color: #FFF;
-	vertical-align: top;
+	vertical-align: center;
         border: 1px solid #555;
 }
 table.tablesorter tbody tr.odd td {
