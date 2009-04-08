@@ -45,7 +45,7 @@
 			<table id="bugTable" class="tablesorter">
 				<thead>
 					<tr id="row-head">
-						<th style="width:8%">Priority</th>
+						<th style="width:10%">Priority</th>
 						<th style="width:20%">Name</th>
 						<th style="width:5%">Module</th>
 						<th style="width:5%">Kind</th>
@@ -162,7 +162,7 @@
 		</div>
 			<p class="automargined" style="width:88px;">
 				<a href="http://validator.w3.org/check?uri=referer">
-					<img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" style="width:88; border-width:0px;" />
+					<img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" style="width:88px; border-width:0px;" />
 				</a>
 			</p>
 	</body>
