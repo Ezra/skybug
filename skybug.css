@@ -10,6 +10,13 @@ td.Webskyte { background-color: #cc99ff !important; }
 td.Bug { background-color: #ff99cc !important; }
 td.Feature { background-color: #ccff99 !important; }
 
+#footer {
+    width: 80%;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #555;
+}
+
 /* Buttons. Code by Kevin Hale, taken from http://particletree.com/features/rediscovering-the-button-element/ , used by CC-BY license*/
 
 button{
@@ -102,6 +109,7 @@ table.tablesorter tbody td {
 	padding: 4px;
 	background-color: #FFF;
 	vertical-align: top;
+        border: 1px solid #555;
 }
 table.tablesorter tbody tr.odd td {
 	background-color:#F0F0F6;

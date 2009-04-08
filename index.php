@@ -42,7 +42,7 @@
 		</h1>
 
 	  <div id="results" class="automargined" style="width: 90%; margin-bottom: 2em;">
-			<table id="bugTable" class="tablesorter" border="1px">
+			<table id="bugTable" class="tablesorter">
 				<thead>
 					<tr id="row-head">
 						<th style="width:8%">Priority</th>
@@ -110,7 +110,7 @@
 				</tbody>
 			</table>
 		</div>
-		<div id="submission-form" class="automargined" style="width:20em;">
+		<div id="submission-form" class="automargined" style="width:24em;">
 			<form action="submit.php" method="post">
 				<fieldset>
 					<div>
@@ -120,7 +120,7 @@
 					</div>
 					<div>
 						<label>Description:<br />
-							<textarea name="description" rows="4" cols="20"></textarea>
+							<textarea name="description" rows="4" cols="22"></textarea>
 						</label>
 					</div>
 					<div style="float:left">
@@ -152,23 +152,18 @@
 			</form>
 		</div>
 
-		<div id="footer">
-			<p>
-				Click the table headers to sort by that column, and click the shiny buttons to approve or disapprove of an issue.
-				Please restrain yourselves from voting multiple times - we're still working on authentication.
-				Sorting of the Priority column is done with a Wilson Score, with a 95% confidence interval.
-			</p>
-			<p>
-				Use the form above to add an issue to Skybug.
-			</p>
-			<p>
-				Images from the <a href="http://famfamfam.com/lab/icons/silk/">Silk Icon set, by Mark James</a>. Used by CC-BY license.
-			</p>
+		<div id="footer" class="automargined">
+			<p> Click the table headers to sort by that column, and click the shiny buttons to approve or disapprove of an issue.
+			    Sorting of the Priority column is done with a Wilson Score, with a 95% confidence interval.
+                            You can hold shift and then click multiple columns to sort by more than one column. </p>
+			<p> Please restrain yourselves from voting multiple times - we're still working on authentication. </p>
+			<p> Use the form above to add an issue to Skybug.</p>
+			<p> Images from the <a href="http://famfamfam.com/lab/icons/silk/">Silk Icon set, by Mark James</a>. Used by CC-BY license. </p>
+		</div>
 			<p class="automargined" style="width:88px;">
 				<a href="http://validator.w3.org/check?uri=referer">
 					<img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" height="31" style="width:88; border-width:0px;" />
 				</a>
 			</p>
-		</div>
 	</body>
 </html>
