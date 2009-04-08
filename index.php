@@ -7,8 +7,6 @@
 		<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 		<title>Skybug Tracker</title>
 		<link rel="stylesheet" type="text/css" href="skybug.css" />
-		<script src="utility.js" type="text/javascript"></script>
-		<script src="buttons.js" type="text/javascript"></script>
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 		<script type="text/javascript">
 			google.load("jquery", "1.3");
@@ -22,6 +20,13 @@
 		</script>
 		<script type="text/javascript" src="jquery.tablesorter.min.js"></script>
 		<script type="text/javascript" src="tablesort.js"></script>
+		<script type="text/javascript">
+			function do_vote(vote_id, pres) {
+				$.post("vote.php", {id: vote_id, dir: pres}, function(old) {
+					$("#" + old + vote_id).removeClass("pressed");
+					$("#" + pres + vote_id).addClass("pressed");
+			})}
+		</script>
 	</head>
 
 	<body>
@@ -29,77 +34,74 @@
 			Skybug Tracker
 		</h1>
 
-	    <div id="results" class="automargined" style="width: 90%; margin-bottom: 2em;">
-			<form action="vote.php" method="post">
-				<table id="bugTable" border="1px">
-					<thead>
-						<tr id="row-head">
-							<th style="width:8%">Priority</th>
-							<th style="width:20%">Name</th>
-							<th style="width:5%">Module</th>
-							<th style="width:5%">Kind</th>
-							<th style="width:50%">Description</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-							require("server.php");
+	  <div id="results" class="automargined" style="width: 90%; margin-bottom: 2em;">
+			<table id="bugTable" border="1px">
+				<thead>
+					<tr id="row-head">
+						<th style="width:8%">Priority</th>
+						<th style="width:20%">Name</th>
+						<th style="width:5%">Module</th>
+						<th style="width:5%">Kind</th>
+						<th style="width:50%">Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+						 require("server.php");
 
-							if(mysqli_connect_errno()) {
-								echo "Connection Failed: " . mysqli_connect_errno();
-								exit();
-							}
+						 if(mysqli_connect_errno()) {
+						 echo "Connection Failed: " . mysqli_connect_errno();
+						 exit();
+						 }
 
-							if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs")) {
-								$stmt -> execute();
-								$stmt -> bind_result($id, $name, $description, $module, $kind, $likes, $votes);
-								while($stmt -> fetch()) {
-									?>
-										<tr id="row-<?= $id ?>">
-											<td style="padding:0px;">
-												<button class="positive" id="up<?= $id ?>" onclick="priorityUp(<?= $id ?>);" >
-													<img src="+.png" alt="+"/>
-												</button>
-												<button class="negative" id="down<?= $id ?>" onclick="priorityDown(<?= $id ?>);">
-													<img src="-.png" alt="-"/>
-												</button>
-												<?= $likes."/".$votes ?>
-												<input type="hidden" name="<?= $id ?>" id="<?= "vote".$id ?>" value="0" />
-											</td>
-											<td>
-												<?= stripslashes($name) ?>
-											</td>
-											<td class="<?=$module?>">
-												<?= $module ?>
-											</td>
-											<td class="<?=$kind?>">
-												<?=$kind ?>
-											</td>
-											<td>
-												<?= preg_replace("|\[\[Post:(\d+)\]\]|i", "<a href=\"http://skyrates.net/forum/viewtopic.php?p=$1#$1\">Post #$1</a>",
-													preg_replace("|\[\[Topic:(\d+)\]\]|i", "<a href=\"http://skyrates.net/forum/viewtopic.php?t=$1\">Topic #$1</a>",
-													stripslashes($description))) ?>
-											</td>
-										</tr>
-									<?php
-								}
-								$stmt -> close();
-							} else {
-
+						 if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs")) {
+							$stmt -> execute();
+							$stmt -> bind_result($id, $name, $description, $module, $kind, $likes, $votes);
+							while($stmt -> fetch()) {
 								?>
-									<div class="centered">
-										There was an error fetching the bug table. Please try again, or contact Eskay for help.<br />
-										<a href="index.php">return</a>
-									</div>
-								<?php
+					<tr id="row-<?= $id ?>">
+						<td style="padding:0px;">
+							<button class="positive" id="up<?= $id ?>" onclick="do_vote(<?=$id?>,'up');" >
+								<img src="+.png" alt="+"/>
+							</button>
+							<button class="negative" id="down<?= $id ?>" onclick="do_vote(<?=$id?>,'down');">
+								<img src="-.png" alt="-"/>
+							</button>
+							<?= $likes."/".$votes ?>
+						</td>
+						<td>
+							<?= stripslashes($name) ?>
+						</td>
+						<td class="<?=$module?>">
+							<?= $module ?>
+						</td>
+						<td class="<?=$kind?>">
+							<?=$kind ?>
+						</td>
+						<td>
+							<?= preg_replace("|\[\[Post:(\d+)\]\]|i", "<a href=\"http://skyrates.net/forum/viewtopic.php?p=$1#$1\">Post #$1</a>",
+							    preg_replace("|\[\[Topic:(\d+)\]\]|i", "<a href=\"http://skyrates.net/forum/viewtopic.php?t=$1\">Topic #$1</a>",
+							    stripslashes($description))) ?>
+						</td>
+					</tr>
+					<?php
+				}
+				$stmt -> close();
+			} else {
 
-							}
+					?>
+					<div class="centered">
+						There was an error fetching the bug table. Please try again, or contact Eskay for help.<br />
+						<a href="index.php">return</a>
+					</div>
+					<?php
 
-							$skybug -> close();
-						?>
-					</tbody>
-				</table>
-			</form>
+						 }
+
+						 $skybug -> close();
+					?>
+				</tbody>
+			</table>
 		</div>
 		<div id="submission-form" class="automargined" style="width:20em;">
 			<form action="submit.php" method="post">
