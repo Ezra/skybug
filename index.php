@@ -41,7 +41,7 @@
 			Skybug Tracker
 		</h1>
 
-	  <div id="results" class="automargined" style="width: 90%; margin-bottom: 2em;">
+	  <div id="results" class="automargined" style="width: 90%">
 			<table id="bugTable" class="tablesorter">
 				<thead>
 					<tr id="row-head">
@@ -152,7 +152,7 @@
 			</form>
 		</div>
 
-		<div id="footer" class="automargined">
+		<div id="footer" class="automargined topspaced">
 			<p> Click the table headers to sort by that column, and click the shiny buttons to approve or disapprove of an issue.
 			    Sorting of the Priority column is done with a Wilson Score, with a 95% confidence interval.
                             You can hold shift and then click multiple columns to sort by more than one column. </p>
