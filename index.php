@@ -42,7 +42,7 @@
 		</h1>
 
 	  <div id="results" class="automargined" style="width: 90%; margin-bottom: 2em;">
-			<table id="bugTable" border="1px">
+			<table id="bugTable" class="tablesorter" border="1px">
 				<thead>
 					<tr id="row-head">
 						<th style="width:8%">Priority</th>
