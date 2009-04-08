@@ -2,7 +2,7 @@ $.tablesorter.addParser({
 	id: 'prio_scanner',
 	is: function(s) { return false; },
 	format: function(s) {
-		var posnlist = s.replace(/<\/?(button|input|img)([^<>]*)>/g,"").match(/\d+/g);
+		var posnlist = s.replace(/<\/?(button|input|img|div)([^<>]*)>/g,"").match(/\d+/g);
 		var pos = parseInt(posnlist[0]);
 		var n = parseInt(posnlist[1]);
 		if (n == 0) { return 0; }

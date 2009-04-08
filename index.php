@@ -22,9 +22,11 @@
 		<script type="text/javascript" src="tablesort.js"></script>
 		<script type="text/javascript">
 			function do_vote(vote_id, pres) {
-				$.post("vote.php", {id: vote_id, dir: pres}, function(old) {
-					$("#" + old + vote_id).removeClass("pressed");
+				$.post("vote.php", {id: vote_id, dir: pres}, function(newscore) {
+					$("#" + "up" + vote_id).removeClass("pressed");
+					$("#" + "down" + vote_id).removeClass("pressed");
 					$("#" + pres + vote_id).addClass("pressed");
+					$("#" + "score" + vote_id).childNodes[0].data = newscore;
 			})}
 		</script>
 	</head>
@@ -59,7 +61,7 @@
 							$stmt -> bind_result($id, $name, $description, $module, $kind, $likes, $votes);
 							while($stmt -> fetch()) {
 								?>
-					<tr id="row-<?= $id ?>">
+					<tr id="row<?= $id ?>">
 						<td style="padding:0px;">
 							<button class="positive" id="up<?= $id ?>" onclick="do_vote(<?=$id?>,'up');" >
 								<img src="+.png" alt="+"/>
@@ -67,7 +69,7 @@
 							<button class="negative" id="down<?= $id ?>" onclick="do_vote(<?=$id?>,'down');">
 								<img src="-.png" alt="-"/>
 							</button>
-							<?= $likes."/".$votes ?>
+							<div id="score<?= $id ?>"><?= $likes."/".$votes ?></div>
 						</td>
 						<td>
 							<?= stripslashes($name) ?>
