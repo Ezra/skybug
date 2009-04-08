@@ -12,6 +12,7 @@
 			var sorter = [[0,1],[2,0],[3,0]];
 
 			google.load("jquery", "1.3");
+			google.load("jqueryui", "1.7");
 			google.setOnLoadCallback(function() {
 				// Place init code here instead of $(document).ready()
 				$("#bugTable").tablesorter({
@@ -24,7 +25,9 @@
 					$("#" + "up" + vote_id).removeClass("pressed");
 					$("#" + "down" + vote_id).removeClass("pressed");
 					$("#" + pres + vote_id).addClass("pressed");
-					$("#" + "score" + vote_id).html(newscore);
+					var scoreid = "#" + "score" + vote_id;
+					$(scoreid).html(newscore);
+					$(scoreid).effect("highlight", {}, 2000);
 					$("#bugTable").trigger("update");
 					$("#bugTable").trigger("sorton",[sorter]);
 			})}

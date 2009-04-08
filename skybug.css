@@ -12,14 +12,6 @@ td.Feature { background-color: #ccff99; }
 
 /* Buttons. Code by Kevin Hale, taken from http://particletree.com/features/rediscovering-the-button-element/ , used by CC-BY license*/
 
-button.positive{
-    float:left;
-}
-
-button.negative{
-    float:right;
-}
-
 button{
     margin:0 0 0 0;
     background-color:#fff;
@@ -60,6 +52,7 @@ button:hover{
 
 button.positive{
     color:#529214;
+    float:left;
 }
 button.positive:hover{
     background-color:#E6EFC2;
@@ -68,8 +61,14 @@ button.positive:hover{
 
 button.negative{
     color:#d12f19;
+    float:right;
 }
 button.negative:hover{
     background:#fbe3e4;
     color:#d12f19;
+}
+
+button.pressed{
+     filter: alpha(opacity=40);
+     opacity: 0.4;
 }
