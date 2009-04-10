@@ -164,6 +164,7 @@
 			    Sorting of the Priority column is done with a Wilson Score, with a 95% confidence interval.
                             You can hold shift and then click multiple columns to sort by more than one column. </p>
 			<p> When you vote (which unfortunately requires javascript), you'll get some feedback, the current likes/votes of the item you voted on will be fetched from the server, and it may be resorted, if applicable. </p>
+			<p> The one-user one-vote system works, but like all such systems, isn't perfect. Please restrain yourself from bypassing it. </p>
 			<p> Use the form above to add an issue to Skybug.</p>
 			<p> Images from the <a href="http://famfamfam.com/lab/icons/silk/">Silk Icon set, by Mark James</a>. Used by CC-BY license. </p>
 		</div>
