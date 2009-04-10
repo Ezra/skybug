@@ -1,5 +1,6 @@
 <?php
 	header('Content-Type: text/html; charset=utf-8');
+	include('cookie.php')
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -19,6 +20,18 @@
 					headers: { 0: { sorter: 'prio_scanner' }},
 					sortList: sorter
 				});
+				<?php
+				if($stmt = $skybug -> prepare("SELECT Vote,Bug FROM log WHERE User = ?")) {
+					$stmt -> bind_param('s', $uuid);
+					$stmt -> execute();
+					$stmt -> bind_result($current_vote,$bug_id);
+					while($stmt -> fetch()) {
+				?>
+				$("#<?=$current_vote . $bug_id?>").addClass("pressed");
+				<?php
+					}
+					$stmt -> close();
+				} ?>
 			});
 			function do_vote(vote_id, pres) {
 				$.post("vote.php", {id: vote_id, dir: pres}, function(newscore) {
@@ -54,12 +67,6 @@
 				</thead>
 				<tbody>
 					<?php
-						 require("server.php");
-
-						 if(mysqli_connect_errno()) {
-						 echo "Connection Failed: " . mysqli_connect_errno();
-						 exit();
-						 }
 
 						 if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs")) {
 							$stmt -> execute();
@@ -68,11 +75,11 @@
 								?>
 					<tr id="row<?= $id ?>">
 						<td class="centered" style="padding:0px;">
-							<button class="positive" id="up<?= $id ?>" onclick="do_vote(<?=$id?>,'up');" >
+							<button class="positive<?=($cvote=='up')?' pressed':''?>" id="up<?= $id ?>" onclick="do_vote(<?=$id?>,'up');" >
 								<img src="+.png" alt="+"/>
                                                         </button>
                                                         <div id="score<?= $id ?>"><?= $likes."/".$votes ?></div>
-                                                        <button class="negative" id="down<?= $id ?>" onclick="do_vote(<?=$id?>,'down');">
+                                                        <button class="negative<?=($cvote=='down')?' pressed':''?>" id="down<?= $id ?>" onclick="do_vote(<?=$id?>,'down');">
 								<img src="-.png" alt="-"/>
 							</button>
 						</td>
