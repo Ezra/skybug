@@ -22,7 +22,7 @@ google.setOnLoadCallback(function() {
 	} ?>
 });
 function do_vote(vote_id, pres) {
-	$.post("../vote.php", {id: vote_id, dir: pres}, function(newscore) {
+	$.post("vote.php", {id: vote_id, dir: pres}, function(newscore) {
 		$("#" + "up" + vote_id).removeClass("pressed");
 		$("#" + "down" + vote_id).removeClass("pressed");
 		$("#" + pres + vote_id).addClass("pressed");
