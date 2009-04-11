@@ -40,11 +40,11 @@
 								?>
 					<tr id="row<?= $id ?>">
 						<td class="centered" style="padding:0px;">
-							<button class="positive<?=($cvote=='up')?' pressed':''?>" id="up<?= $id ?>" onclick="do_vote(<?=$id?>,'up');" >
+							<button class="positive" id="up<?= $id ?>" onclick="do_vote(<?=$id?>,'up');" >
 								<img src="images/+.png" alt="+"/>
                                                         </button>
                                                         <div id="score<?= $id ?>"><?= $likes."/".$votes ?></div>
-                                                        <button class="negative<?=($cvote=='down')?' pressed':''?>" id="down<?= $id ?>" onclick="do_vote(<?=$id?>,'down');">
+                                                        <button class="negative" id="down<?= $id ?>" onclick="do_vote(<?=$id?>,'down');">
 								<img src="images/-.png" alt="-"/>
 							</button>
 						</td>
