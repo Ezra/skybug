@@ -5,7 +5,3 @@ function priorityUp(id) {
 function priorityDown(id) {
 	getById("vote"+id).value="-";
 }
-
-function priorityReset() {
-	//TODO
-}
