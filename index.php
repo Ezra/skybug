@@ -10,7 +10,10 @@
 		<link rel="stylesheet" type="text/css" href="css/skybug.css" />
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 		<script type="text/javascript"><?php require "script/vote.js" ?></script>
-		<script type="text/javascript" src="script/jquery.tablesorter.min.js"></script>
+		<script type="text/javascript" src="script/jquery.tablesorter.js"></script>
+		<script type="text/javascript" src="script/jquery.cookie.js"></script>
+		<script type="text/javascript" src="script/jquery.json.js"></script>
+		<script type="text/javascript" src="script/jquery.cookiejar.pack.js"></script>
 		<script type="text/javascript" src="script/tablesort.js"></script>
 	</head>
 
