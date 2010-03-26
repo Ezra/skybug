@@ -11,7 +11,7 @@ td.Webskyte { background-color: #cc99ff !important; }
 td.Bug { background-color: #ff99cc !important; }
 td.Feature { background-color: #ccff99 !important; }
 
-#righted {
+.righted {
     float: right;
     text-align: right;
 }
@@ -33,22 +33,21 @@ button{
     font-size:80%;
     line-height:80%;
     text-decoration:none;
-    font-weight:bold;
     color:#565656;
     cursor:pointer;
-    padding:0px 0px 0px 0px; /* Links */
+    padding:1px; /* Links */
 }
 button{
     width:auto;
     overflow:visible;
-    padding:0px 0px 0px 0px; /* IE6 */
+    padding:1px; /* IE6 */
 }
 button[type]{
-    padding:0px 0px 0px 0px; /* Firefox */
+    padding:1px; /* Firefox */
     line-height:80%; /* Safari */
 }
 *:first-child+html button[type]{
-    padding:0px 0px 0px 0px; /* IE7 */
+    padding:1px; /* IE7 */
 }
 button img {
     margin:-2px -2px -2px -2px !important;
