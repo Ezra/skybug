@@ -1,5 +1,5 @@
 <?php
-	require("cookie.php");
+	require("common.php");
 
 	if(mysqli_connect_errno()) {
 		echo "Connection Failed: " . mysqli_connect_errno();
