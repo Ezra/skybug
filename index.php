@@ -1,6 +1,6 @@
 <?php
 	header('Content-Type: text/html; charset=utf-8');
-	include('common.php')
+	require_once('common.php')
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,6 +18,20 @@
 	</head>
 
 	<body>
+		<div id="user" class="righted">
+			<?php if(isset($_SESSION['msg'])) { ?>
+			<div class="message"><?= $_SESSION['msg'] ?></div>
+			<?php 	unset($_SESSION['msg']);
+						}
+			      if($loggedin) {	?>
+			<span class="username">Hey <?= $username ?> (<a href="logout.php">Log out</a>)</span>
+			<?php } else { ?>
+			<form method="get" action="verify.php">
+				<label>Skyrates Username: <input type="text" name="openid_identifier_suffix" /></label>
+				<button class="submit" type="submit" value="Login">Login</button>
+			</form>
+			<?php } ?>
+		</div>
 		<h1 id="heading" class="centered automargined">
 			Skybug Tracker
 		</h1>
@@ -36,6 +50,7 @@
 				<tbody>
 					<?php
 
+						 if ($loggedin) { $pressed = ""; } else { $pressed = " pressed"; }
 						 if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs")) {
 							$stmt -> execute();
 							$stmt -> bind_result($id, $name, $description, $module, $kind, $likes, $votes);
@@ -43,11 +58,11 @@
 								?>
 					<tr id="row<?= $id ?>">
 						<td class="centered" style="padding:0px;">
-							<button class="positive" id="up<?= $id ?>" onclick="do_vote(<?=$id?>,'up');" >
+							<button class="positive<?= $pressed ?>" id="up<?= $id ?>"	onclick="do_vote(<?=$id?>,'up');" >
 								<img src="images/+.png" alt="+"/>
-                                                        </button>
-                                                        <div id="score<?= $id ?>"><?= $likes."/".$votes ?></div>
-                                                        <button class="negative" id="down<?= $id ?>" onclick="do_vote(<?=$id?>,'down');">
+							</button>
+							<div id="score<?= $id ?>"><?= $likes."/".$votes ?></div>
+							<button class="negative<?= $pressed ?>" id="down<?= $id ?>" onclick="do_vote(<?=$id?>,'down');">
 								<img src="images/-.png" alt="-"/>
 							</button>
 						</td>

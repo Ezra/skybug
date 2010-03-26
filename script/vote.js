@@ -24,7 +24,7 @@ google.setOnLoadCallback(function() {
 	});
 	<?php
 	if($stmt = $skybug -> prepare("SELECT Vote,Bug FROM log WHERE User = ?")) {
-		$stmt -> bind_param('s', $uuid);
+		$stmt -> bind_param('s', $username);
 		$stmt -> execute();
 		$stmt -> bind_result($current_vote,$bug_id);
 		while($stmt -> fetch()) {

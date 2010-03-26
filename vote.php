@@ -1,5 +1,7 @@
 <?php
-	require("common.php");
+	require_once("common.php");
+
+	if(!$loggedin) { die("You're not logged in."); }
 
 	if(mysqli_connect_errno()) {
 		echo "Connection Failed: " . mysqli_connect_errno();
@@ -12,7 +14,7 @@
 	$current_vote = null;
 
 	if($stmt = $skybug -> prepare("SELECT Vote FROM log WHERE User = ? AND Bug = ? LIMIT 1")) {
-	  $stmt -> bind_param('si', $uuid, $id);
+	  $stmt -> bind_param('si', $username, $id);
 		$stmt -> execute();
 		$stmt -> bind_result($current_vote);
 		$stmt -> fetch();
@@ -39,12 +41,12 @@
 		if(!($current_vote == $value)) {
 			if($current_vote == "up") { one_int($skybug -> prepare("UPDATE bugs SET Likes = Likes - 1 WHERE ID = ? LIMIT 1"), $id); }
 			                     else { one_int($skybug -> prepare("UPDATE bugs SET Likes = Likes + 1 WHERE ID = ? LIMIT 1"), $id); }
-			str_str_int($skybug -> prepare("UPDATE log SET Vote = ? WHERE User = ? AND Bug = ? LIMIT 1"), $value, $uuid, $id);
+			str_str_int($skybug -> prepare("UPDATE log SET Vote = ? WHERE User = ? AND Bug = ? LIMIT 1"), $value, $username, $id);
 		}
 	} elseif($value) {
 		one_int($skybug -> prepare("UPDATE bugs SET Votes = Votes + 1 WHERE ID = ? LIMIT 1"), $id);
 		if($value == "up") { one_int($skybug -> prepare("UPDATE bugs SET Likes = Likes + 1 WHERE ID = ? LIMIT 1"), $id); }
-		str_str_int($skybug -> prepare("INSERT INTO log (Vote, User, Bug) VALUES (?, ?, ?)"), $value, $uuid, $id);
+		str_str_int($skybug -> prepare("INSERT INTO log (Vote, User, Bug) VALUES (?, ?, ?)"), $value, $username, $id);
 	}
 
 	if($stmt = $skybug -> prepare("UPDATE bugs SET Rate = Likes / Votes WHERE ID = ? LIMIT 1")) {

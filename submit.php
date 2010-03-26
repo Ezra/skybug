@@ -27,7 +27,7 @@
 		$stmt -> close();
 		if($stmt = $skybug -> prepare("INSERT INTO log (User, Vote, Bug) VALUES (?, ?, ?)")) {
 			$up_string = "up";
-			$stmt -> bind_param('ssi', $uuid, $up_string, ($skybug -> insert_id));
+			$stmt -> bind_param('ssi', $username, $up_string, ($skybug -> insert_id));
 			$stmt -> execute();
 			$stmt -> close();
 		}
