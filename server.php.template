@@ -1,0 +1,1 @@
+<?php $skybug = new mysqli('address', 'username', 'password', 'database'); ?>
