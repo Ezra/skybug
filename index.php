@@ -109,7 +109,7 @@
 							Skybug
 						</label>
 					</div>
-					<div style="float:right; text-align: right">
+					<div class="righted">
 						<label>
 							Bug Report
 							<input type="radio" name="kind" value="Bug" checked="checked"/>

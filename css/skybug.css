@@ -11,6 +11,11 @@ td.Webskyte { background-color: #cc99ff !important; }
 td.Bug { background-color: #ff99cc !important; }
 td.Feature { background-color: #ccff99 !important; }
 
+#righted {
+    float: right;
+    text-align: right;
+}
+
 #footer {
     width: 80%;
     background-color: #fff;
