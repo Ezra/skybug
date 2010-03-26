@@ -50,7 +50,7 @@
 				<tbody>
 					<?php
 
-						 if ($loggedin) { $pressed = ""; } else { $pressed = " pressed"; }
+						 if ($loggedin) { $class = ""; } else { $class = " disabled"; }
 						 if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs")) {
 							$stmt -> execute();
 							$stmt -> bind_result($id, $name, $description, $module, $kind, $likes, $votes);
@@ -58,11 +58,11 @@
 								?>
 					<tr id="row<?= $id ?>">
 						<td class="centered" style="padding:0px;">
-							<button class="positive<?= $pressed ?>" id="up<?= $id ?>"	onclick="do_vote(<?=$id?>,'up');" >
+							<button class="positive<?= $class ?>" id="up<?= $id ?>"	onclick="do_vote(<?=$id?>,'up');" >
 								<img src="images/+.png" alt="+"/>
 							</button>
 							<div id="score<?= $id ?>"><?= $likes."/".$votes ?></div>
-							<button class="negative<?= $pressed ?>" id="down<?= $id ?>" onclick="do_vote(<?=$id?>,'down');">
+							<button class="negative<?= $class ?>" id="down<?= $id ?>" onclick="do_vote(<?=$id?>,'down');">
 								<img src="images/-.png" alt="-"/>
 							</button>
 						</td>

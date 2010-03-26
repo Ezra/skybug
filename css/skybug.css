@@ -95,6 +95,11 @@ button.pressed{
      opacity: 0.4;
 }
 
+button.disabled{
+     filter: alpha(opacity=20) !important;
+     opacity: 0.2 !important;
+}
+
 body {
     font-family:arial;
     background-color: #CDCDCD;
