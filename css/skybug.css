@@ -16,6 +16,14 @@ td.Feature { background-color: #ccff99 !important; }
     text-align: right;
 }
 
+.league { color:#2072ef; }
+.hand { color:#01bb02; }
+.armada { color:#f20202; }
+.order { color:#763c01; }
+.court { color:#9152df; }
+.school { color:#edbe02; }
+.indies { color:#e45d03; }}
+
 #footer {
     width: 80%;
     background-color: #fff;

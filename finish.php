@@ -27,7 +27,11 @@ if ($response->status == Auth_OpenID_CANCEL) {
 				 '<a href="%s">%s</a> as your identity.',
 				 $esc_identity, $esc_identity);
 
+  $sreg = Auth_OpenID_SRegResponse::fromSuccessResponse($response)->contents();
+
   $_SESSION['openid'] = $openid;
+  $_SESSION['username'] = @$sreg['username'];
+  $_SESSION['faction'] = @$sreg['faction'];
 
  }
 

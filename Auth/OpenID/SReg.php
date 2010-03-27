@@ -48,6 +48,9 @@ require_once 'Auth/OpenID/Extension.php';
 // The data fields that are listed in the sreg spec
 global $Auth_OpenID_sreg_data_fields;
 $Auth_OpenID_sreg_data_fields = array(
+                                      'username' => 'Username',
+                                      'charname' => 'Character name',
+                                      'faction' => 'Faction',
                                       'fullname' => 'Full Name',
                                       'nickname' => 'Nickname',
                                       'dob' => 'Date of Birth',

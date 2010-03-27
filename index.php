@@ -23,8 +23,28 @@
 			<div class="message"><?= $_SESSION['msg'] ?></div>
 			<?php 	unset($_SESSION['msg']);
 						}
+						$places = array("Azure League" => "%s's blueprints",
+						                "Jade Hand" => "%s's requisitions",
+						                "Crimson Armada" => "%s's orders",
+						                "Earthen Order" => "%s's prayers",
+						                "Court of Violets" => "%s's assurances",
+						                "Flight School" => "%s's causes",
+						                "Independents" => "%s's foci",
+						                "Pirates" => "%s's todo list");
+						$shortnames = array("Azure League" => "league",
+						                    "Jade Hand" => "hand",
+						                    "Crimson Armada" => "armada",
+						                    "Earthen Order" => "order",
+						                    "Court of Violets" => "court",
+						                    "Flight School" => "school",
+						                    "Independents" => "indies",
+						                    "Pirates" => "devs");
+						$welcome = sprintf($places[$faction], $username);
+						if($welcome==NULL) {
+							$welcome = sprintf("You, %s, have logged in fine. But something is wonky with your faction. Please report the text ('%s') and the code ('%s') to tSotW.", $username, $faction, rand(1000,9000)); }
+						$shortname = $shortnames[$faction];
 			      if($loggedin) {	?>
-			<span class="username">Hey <?= $username ?> (<a href="logout.php">Log out</a>)</span>
+			<span class="faction <?= $shortname ?>"><?= $welcome ?></span> (<a href="logout.php">Log out</a>)
 			<?php } else { ?>
 			<form method="get" action="verify.php">
 				<label>Skyrates Username: <input type="text" name="openid_identifier_suffix" /></label>

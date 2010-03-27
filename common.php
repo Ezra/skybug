@@ -2,6 +2,7 @@
 require_once("Auth/OpenID.php");
 require_once("Auth/OpenID/MemcachedStore.php");
 require_once("Auth/OpenID/Consumer.php");
+require_once("Auth/OpenID/SReg.php");
 require_once("server.php");
 
 if(mysqli_connect_errno()) {
@@ -33,11 +34,6 @@ function getReturnTo() {
 
 $skyrates_prefix = "http://skyrates.net/OpenID/index.php/idpage?user=";
 
-function deURI($uri) {
-  global $skyrates_prefix;
-  return substr($uri, strlen($skyrates_prefix));
-}
-
 $memcache = new Memcache();
 $memcache->connect('localhost', 11211) or die("Could not connect to memcached");
 $store = new Auth_OpenID_MemcachedStore($memcache);
@@ -45,13 +41,11 @@ $consumer = new Auth_OpenID_Consumer($store);
 
 session_start();
 
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['openid'])) {
   $loggedin = true;
+  $openid = $_SESSION['openid'];
   $username = $_SESSION['username'];
- } elseif (isset($_SESSION['openid'])) {
-  $loggedin = true;
-  $username = deURI($_SESSION['openid']);
-  $_SESSION['username'] = $username;
+  $faction = $_SESSION['faction'];
  } else {
   $loggedin = false;
  }

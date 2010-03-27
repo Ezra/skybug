@@ -4,6 +4,8 @@ require_once("common.php");
 
 $openid_url = $skyrates_prefix . $_GET['openid_identifier_suffix'];
 $auth_request = $consumer->begin($openid_url);
+$sreg_request = Auth_OpenID_SRegRequest::build(array('username', 'faction'), array('charname'));
+$auth_request->addExtension($sreg_request);
 
 // Redirect the user to the OpenID server for authentication.
 // Store the token for this authentication so we can verify the
