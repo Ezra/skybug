@@ -20,7 +20,7 @@
 	<body>
 		<div id="user" class="righted">
 			<?php if(isset($_SESSION['msg'])) { ?>
-			<div class="message"><?= $_SESSION['msg'] ?></div>
+			<div class="message" id="status_message"><?= $_SESSION['msg'] ?></div>
 			<?php 	unset($_SESSION['msg']);
 						}
 						$places = array("Azure League" => "%s's blueprints",
@@ -44,7 +44,7 @@
 							$welcome = sprintf("You, %s, have logged in fine. But something is wonky with your faction. Please report the text ('%s') and the code ('%s') to tSotW.", $username, $faction, rand(1000,9000)); }
 						$shortname = $shortnames[$faction];
 			      if($loggedin) {	?>
-			<span class="faction <?= $shortname ?>"><?= $welcome ?></span> (<a href="logout.php">Log out</a>)
+			<div><span class="faction <?= $shortname ?>"><?= $welcome ?></span> (<a href="logout.php">Log out</a>)</div>
 			<?php } else { ?>
 			<form method="get" action="verify.php">
 				<!-- <label>Skyrates Username: <input type="text" name="openid_identifier_suffix" /></label> -->

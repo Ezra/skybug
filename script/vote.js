@@ -34,6 +34,8 @@ google.setOnLoadCallback(function() {
 		}
 		$stmt -> close();
 	} ?>
+
+	$("#status_message").effect('highlight', {}, 3000);
 });
 
 function do_vote(vote_id, pres) {

@@ -22,13 +22,31 @@ td.Feature { background-color: #ccff99 !important; }
 .order { color:#763c01; }
 .court { color:#9152df; }
 .school { color:#a96600; }
-.indies { color:#e45d03; }}
+.indies { color:#e45d03; }
 
 #footer {
     width: 80%;
     background-color: #fff;
     padding: 10px;
     border: 1px solid #555;
+}
+
+#user {
+	background-color: #fff;
+	padding: 0px;
+	display: block;
+	margin: 0em;
+	border: 1px solid #555;
+}
+
+#user div {
+	margin: 5px;
+}
+
+
+#user button {
+	padding: 0px;
+	margin: 2px;
 }
 
 /* Buttons. Code by Kevin Hale, taken from http://particletree.com/features/rediscovering-the-button-element/ , used by CC-BY license*/
