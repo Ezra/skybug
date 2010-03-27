@@ -19,7 +19,9 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `bugs`
 --
 
-CREATE TABLE IF NOT EXISTS `bugs` (
+DROP TABLE IF EXISTS `bugs`;
+
+CREATE TABLE `bugs` (
   `ID` int(11) NOT NULL auto_increment,
   `Name` varchar(255) NOT NULL,
   `Description` text NOT NULL,
@@ -37,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `bugs` (
 -- Dumping data for table `bugs`
 --
 
-INSERT INTO `bugs` (`ID`, `Name`, `Description`, `DateAdded`, `Module`, `Kind`, `Status`, `Likes`, `Votes`, `Rate`) VALUES
+REPLACE INTO `bugs` (`ID`, `Name`, `Description`, `DateAdded`, `Module`, `Kind`, `Status`, `Likes`, `Votes`, `Rate`) VALUES
 (2, 'Split Profit misbehaves', '[[Topic:6007]]', '2009-03-25 00:03:38', 'Skyrates', 'Bug', 'Posted', 10, 15, 0.666666666),
 (9, 'Hull upgrades', '[[Topic:6423]]', '2009-03-25 01:02:26', 'Skyrates', 'Feature', 'Posted', 53, 59, 0.898305084),
 (8, 'Fix firepower.', '[[Topic:6403]]', '2009-03-25 00:55:55', 'Skyrates', 'Feature', 'Posted', 20, 30, 0.666666666),
@@ -93,8 +95,9 @@ INSERT INTO `bugs` (`ID`, `Name`, `Description`, `DateAdded`, `Module`, `Kind`, 
 --
 -- Table structure for table `log`
 --
+DROP TABLE IF EXISTS `log`;
 
-CREATE TABLE IF NOT EXISTS `log` (
+CREATE TABLE `log` (
   `User` char(43) NOT NULL,
   `Bug` int(11) NOT NULL,
   `Vote` enum('up','down') NOT NULL,
