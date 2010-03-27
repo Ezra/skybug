@@ -2,7 +2,8 @@
 
 require_once("common.php");
 
-$openid_url = $skyrates_prefix . $_GET['openid_identifier_suffix'];
+// $openid_url = $skyrates_prefix . $_GET['openid_identifier_suffix'];
+$openid_url = $skyrates_discovered;
 $auth_request = $consumer->begin($openid_url);
 $sreg_request = Auth_OpenID_SRegRequest::build(array('username', 'faction'), array('charname'));
 $auth_request->addExtension($sreg_request);

@@ -32,7 +32,8 @@ function getReturnTo() {
                    dirname($_SERVER['PHP_SELF']));
 }
 
-$skyrates_prefix = "http://skyrates.net/OpenID/index.php/idpage?user=";
+// $skyrates_prefix = "http://skyrates.net/OpenID/index.php/idpage?user=";
+$skyrates_discovered = "http://skyrates.net/OpenID/";
 
 $memcache = new Memcache();
 $memcache->connect('localhost', 11211) or die("Could not connect to memcached");

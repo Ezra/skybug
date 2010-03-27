@@ -47,7 +47,7 @@
 			<span class="faction <?= $shortname ?>"><?= $welcome ?></span> (<a href="logout.php">Log out</a>)
 			<?php } else { ?>
 			<form method="get" action="verify.php">
-				<label>Skyrates Username: <input type="text" name="openid_identifier_suffix" /></label>
+				<!-- <label>Skyrates Username: <input type="text" name="openid_identifier_suffix" /></label> -->
 				<button class="submit" type="submit" value="Login">Login</button>
 			</form>
 			<?php } ?>
