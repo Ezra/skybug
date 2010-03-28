@@ -1,4 +1,4 @@
-ALTER TABLE scripts go into the sql directory. It's good practice to make them idempotent, if possible.
+ALTER TABLE scripts go into the sql directory (and ONLY those scripts go into the sql directory). It's good practice to make them idempotent, if possible.
 
 These scripts are supposed to be immutable. Do not modify them, or you'll break EVERYTHING. Probably.
 
