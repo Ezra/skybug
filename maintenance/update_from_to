@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ 0 -eq $# ]
+then
+   echo "Pass arguments as you would to git log."
+   echo "General case: sql/update FROM_HASH TO_HASH"
+fi
+
+ROOT=./$(git rev-parse --show-cdup)
+FILELIST=$(git log --reverse --name-only --format="format:" $* -- $ROOT/sql | grep -v '^\s*$')
+if [ -n "$FILELIST" ]
+then
+	echo $FILELIST
+	OLD=$PWD
+	cd $ROOT
+	cat $FILELIST | maintenance/run_sql
+	cd $OLD
+else
+	echo "No database changes to update."
+fi

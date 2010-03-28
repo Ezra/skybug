@@ -1,0 +1,13 @@
+#!/bin/sh
+
+ROOT=./$(git rev-parse --show-cdup)
+VERSION_FILE=$ROOT/maintenance/local_db_version
+set +x
+if [ ! -e $VERSION_FILE ]
+then
+	ARGS="$(git hash-object -t tree /dev/null) HEAD"
+else
+	ARGS="$(cat $VERSION_FILE)..HEAD"
+fi
+
+$ROOT/maintenance/update_from_to $ARGS && git rev-parse HEAD > $VERSION_FILE

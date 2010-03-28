@@ -1,0 +1,11 @@
+ALTER TABLE scripts go into the sql directory. It's good practice to make them idempotent, if possible.
+
+These scripts are supposed to be immutable. Do not modify them, or you'll break EVERYTHING. Probably.
+
+maintenance/run_sql needs to exist, modify it from maintenance/run_sql.template.
+maintenance/update_from_to is the database updater that you can give a specific from and to commit ids.
+maintenance/update updates maintains maintenance/local_db_version, which is a file ignored by git.
+
+Normal usage is just to run maintenance/update after every pull. If you run maintenance/update_from_to, be sure to update maintenance/local_db_version correspondingly.
+
+Our lack of using this from the start conspires nicely with the DROP TABLE IF EXISTS and REPLACE in sql/initial.sql.

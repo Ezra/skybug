@@ -1,1 +1,3 @@
 server.php
+maintenance/run_sql
+maintenance/local_db_version
