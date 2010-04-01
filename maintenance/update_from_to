@@ -14,7 +14,9 @@ then
 	OLD=$PWD
 	cd $ROOT
 	cat $FILELIST | maintenance/run_sql
+	OLDSTATUS=$?
 	cd $OLD
+	exit $OLDSTATUS
 else
 	echo "No database changes to update."
 fi
