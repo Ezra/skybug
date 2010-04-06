@@ -69,12 +69,11 @@
 				</thead>
 				<tbody>
 					<?php
-
 						 if ($loggedin) { $class = ""; } else { $class = " disabled"; }
-						 if($stmt = $skybug -> prepare("SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs")) {
-							$stmt -> execute();
-							$stmt -> bind_result($id, $name, $description, $module, $kind, $likes, $votes);
-							while($stmt -> fetch()) {
+						 $result = run($skybug, "SELECT ID, Name, Description, Module, Kind, Likes, Votes FROM bugs", null);
+						 if($result) {
+							while($row =& $result -> fetchRow()) {
+						   $id = $row->ID; $name = $row->Name; $description = $row->Description; $module = $row->Module; $kind = $row->Kind; $likes = $row->Likes; $votes = $row->Votes;
 								?>
 					<tr id="row<?= $id ?>">
 						<td class="centered" style="padding:0px;">
@@ -103,7 +102,7 @@
 					</tr>
 					<?php
 				}
-				$stmt -> close();
+				$result -> free();
 			} else {
 
 					?>
@@ -115,7 +114,7 @@
 
 						 }
 
-						 $skybug -> close();
+						 $skybug -> disconnect();
 					?>
 				</tbody>
 			</table>

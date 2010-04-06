@@ -3,11 +3,28 @@ require_once("Auth/OpenID.php");
 require_once("Auth/OpenID/MemcachedStore.php");
 require_once("Auth/OpenID/Consumer.php");
 require_once("Auth/OpenID/SReg.php");
+require_once("DB.php");
 require_once("server.php");
 
-if(mysqli_connect_errno()) {
-	echo "Connection Failed: " . mysqli_connect_errno();
-	exit();
+$dsn = $driver . "://" . $user . ":" . $password . "@" . $host . "/" . $db;
+$skybug =& DB::connect($dsn);
+
+if(DB::isError($skybug)) { die("Connection Failed: " . $skybug->getMessage()); }
+$skybug->setFetchMode(DB_FETCHMODE_OBJECT);
+
+function run($conn, $str, $data) {
+  $stmt = $conn -> prepare($str);
+  if(!DB::isError($stmt)) {
+	$result =& $conn -> execute($stmt, $data);
+	if (!DB::isError($result)) {
+	  if (DB::isManip($str)) {
+		return $result;
+	  } else {
+		if ($result->numRows() > 0) { return $result; }
+	  }
+	}
+  }
+  return null;
 }
 
 function getScheme() {
