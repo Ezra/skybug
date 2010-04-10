@@ -30,7 +30,7 @@
 						                "Court of Violets" => "%s's assurances",
 						                "Flight School" => "%s's causes",
 						                "Independents" => "%s's foci",
-						                "Pirates" => "%s's todo list");
+						                "Developers" => "%s's todo list");
 						$shortnames = array("Azure League" => "league",
 						                    "Jade Hand" => "hand",
 						                    "Crimson Armada" => "armada",
@@ -38,7 +38,7 @@
 						                    "Court of Violets" => "court",
 						                    "Flight School" => "school",
 						                    "Independents" => "indies",
-						                    "Pirates" => "devs");
+						                    "Developers" => "devs");
 						$welcome = sprintf($places[$faction], $username);
 						if($welcome==NULL) {
 							$welcome = sprintf("You, %s, have logged in fine. But something is wonky with your faction. Please report the text ('%s') and the code ('%s') to tSotW.", $username, $faction, rand(1000,9000)); }
