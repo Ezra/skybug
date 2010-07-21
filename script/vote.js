@@ -23,16 +23,15 @@ google.setOnLoadCallback(function() {
 		widgets: ['cookie']
 	});
 	<?php
-	if($stmt = $skybug -> prepare("SELECT Vote,Bug FROM log WHERE User = ?")) {
-		$stmt -> bind_param('s', $username);
-		$stmt -> execute();
-		$stmt -> bind_result($current_vote,$bug_id);
-		while($stmt -> fetch()) {
+	$result = run($skybug, "SELECT Vote,Bug FROM log WHERE User = ?", array($username));
+	if ($result) {
+		while($row =& $result -> fetchRow()) {
+			$current_vote = $row->Vote; $bug_id = $row->Bug;
 	?>
 	$("#<?=$current_vote . $bug_id?>").addClass("pressed");
 	<?php
 		}
-		$stmt -> close();
+		$result->free();
 	} ?>
 
 	$("#status_message").effect('highlight', {}, 3000);

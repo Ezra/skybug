@@ -3,67 +3,34 @@
 
 	if(!$loggedin) { die("You're not logged in."); }
 
-	if(mysqli_connect_errno()) {
-		echo "Connection Failed: " . mysqli_connect_errno();
-		exit();
-	}
-
 	$id = filter_var($_POST["id"], FILTER_SANITIZE_NUMBER_FLOAT);
 	$value = filter_var($_POST["dir"], FILTER_SANITIZE_STRING);
 
-	$current_vote = null;
-
-	if($stmt = $skybug -> prepare("SELECT Vote FROM log WHERE User = ? AND Bug = ? LIMIT 1")) {
-	  $stmt -> bind_param('si', $username, $id);
-		$stmt -> execute();
-		$stmt -> bind_result($current_vote);
-		$stmt -> fetch();
-		$stmt -> close();
-	}
-
-	function str_str_int($stmt, $str1, $str2, $int) {
-		if($stmt) {
-			$stmt -> bind_param('ssi', $str1, $str2, $int);
-	      		$stmt -> execute();
-	      		$stmt -> close();
-		}
-	}
-
-	function one_int($stmt, $int) {
-		if($stmt) {
-			$stmt -> bind_param('i', $int);
-			$stmt -> execute();
-			$stmt -> close();
-		}
-	}
-
-	if($current_vote) {
-		if(!($current_vote == $value)) {
-			if($current_vote == "up") { one_int($skybug -> prepare("UPDATE bugs SET Likes = Likes - 1 WHERE ID = ? LIMIT 1"), $id); }
-			                     else { one_int($skybug -> prepare("UPDATE bugs SET Likes = Likes + 1 WHERE ID = ? LIMIT 1"), $id); }
-			str_str_int($skybug -> prepare("UPDATE log SET Vote = ? WHERE User = ? AND Bug = ? LIMIT 1"), $value, $username, $id);
-		}
+	$result = run($skybug, "SELECT Vote FROM log WHERE User = ? AND Bug = ? LIMIT 1", array($username, $id));
+	if ($result) {
+	  $current_vote = $result->fetchRow()->Vote;
+	  if(!($current_vote == $value)) {
+		if($current_vote == "up") { run($skybug, "UPDATE bugs SET Likes = Likes - 1 WHERE ID = ? LIMIT 1", array($id)); }
+		else { run($skybug, "UPDATE bugs SET Likes = Likes + 1 WHERE ID = ? LIMIT 1", array($id)); }
+		run($skybug, "UPDATE log SET Vote = ? WHERE User = ? AND Bug = ? LIMIT 1", array($value, $username, $id));
+	  }
+	  $result -> free();
 	} elseif($value) {
-		one_int($skybug -> prepare("UPDATE bugs SET Votes = Votes + 1 WHERE ID = ? LIMIT 1"), $id);
-		if($value == "up") { one_int($skybug -> prepare("UPDATE bugs SET Likes = Likes + 1 WHERE ID = ? LIMIT 1"), $id); }
-		str_str_int($skybug -> prepare("INSERT INTO log (Vote, User, Bug) VALUES (?, ?, ?)"), $value, $username, $id);
+	  run($skybug, "UPDATE bugs SET Votes = Votes + 1 WHERE ID = ? LIMIT 1", array($id));
+	  if($value == "up") { run($skybug, "UPDATE bugs SET Likes = Likes + 1 WHERE ID = ? LIMIT 1", array($id)); }
+	  run($skybug, "INSERT INTO log (Vote, User, Bug) VALUES (?, ?, ?)", array($value, $username, $id));
 	}
 
-	if($stmt = $skybug -> prepare("UPDATE bugs SET Rate = Likes / Votes WHERE ID = ? LIMIT 1")) {
-		$stmt -> bind_param('i', $id);
-		if($value == "up" || $value == "down") {
-			$stmt -> execute();
-		}
-		$stmt -> close();
-	}
-	if($stmt = $skybug -> prepare("SELECT Likes, Votes FROM bugs WHERE ID = ? LIMIT 1")) {
-		$stmt -> bind_param('i', $id);
-		$stmt -> execute();
-		$stmt -> bind_result($likes, $votes);
-		$stmt -> fetch();
-		$stmt -> close();
-		echo $likes . "/" . $votes;
+	if($value == "up" || $value == "down") {
+	  run($skybug, "UPDATE bugs SET Rate = Likes / Votes WHERE ID = ? LIMIT 1", array($id));
 	}
 
-	$skybug -> close();
+	$result = run($skybug, "SELECT Likes, Votes FROM bugs WHERE ID = ? LIMIT 1", array($id));
+	if($result) {
+	  $row =& $result->fetchRow();
+	  echo $row->Likes . "/" . $row->Votes;
+	  $result -> free();
+	}
+
+	$skybug -> disconnect();
 ?>

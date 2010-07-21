@@ -1,1 +1,7 @@
-<?php $skybug = new mysqli('address', 'username', 'password', 'database'); ?>
+<?php
+$driver = "mysqli";
+$user = "user";
+$password = "password";
+$host = "localhost";
+$db = "skybug";
+?>

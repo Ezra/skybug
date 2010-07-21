@@ -1,0 +1,2 @@
+Fix hack documented in submit.php
+    (Can't switch to PEAR::MDB2 because php_openid depends on PEAR::DB.)
