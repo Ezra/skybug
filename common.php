@@ -1,6 +1,6 @@
 <?php
 require_once("Auth/OpenID.php");
-require_once("Auth/OpenID/MemcachedStore.php");
+require_once("Auth/OpenID/MySQLStore.php");
 require_once("Auth/OpenID/Consumer.php");
 require_once("Auth/OpenID/SReg.php");
 require_once("DB.php");
@@ -52,9 +52,8 @@ function getReturnTo() {
 // $skyrates_prefix = "http://skyrates.net/OpenID/index.php/idpage?user=";
 $skyrates_discovered = "http://skyrates.net/OpenID/";
 
-$memcache = new Memcache();
-$memcache->connect('localhost', 11211) or die("Could not connect to memcached");
-$store = new Auth_OpenID_MemcachedStore($memcache);
+$store = new Auth_OpenID_MySQLStore($skybug, 'oid_associations', 'oid_nonces');
+// $store->createTables(); // Do we need this? Our db versioning creates the tables anyway, so this boils down to an extra runtime check every time a page is requested.
 $consumer = new Auth_OpenID_Consumer($store);
 
 session_start();
